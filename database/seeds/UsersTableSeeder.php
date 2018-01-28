@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'username' => env('ADMIN_USERNAME'),
             'password' => bcrypt(env('DEFAULT_USER_PWD')),
-            'name' => '王老師',
+            'name' => '系統管理者',
             'admin' => '1',
         ]);
     }
