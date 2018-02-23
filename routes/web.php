@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('index');
 
 //Auth::routes();
 //登入/登出
@@ -22,9 +20,14 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 
+//管理者
 Route::group(['middleware' => 'admin'],function(){
-    Route::get('/admin', 'HomeController@admin')->name('admin');
+    Route::get('admin', 'HomeController@admin')->name('admin');
+});
+
+//登入會員
+Route::group(['middleware' => 'auth'],function() {
+    Route::get('home', 'HomeController@home')->name('home');
 });

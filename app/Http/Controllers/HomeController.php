@@ -23,6 +23,15 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(auth()->check()){
+            return redirect()->route('home');
+        }else{
+            return view('auth.login');
+        }
+    }
+
+    public function home()
+    {
         return view('home');
     }
 
