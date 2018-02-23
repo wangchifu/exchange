@@ -40,4 +40,8 @@ class LoginController extends Controller
     {
         return 'username';
     }
+    public function refereshcapcha()
+    {
+        return captcha_img('flat');
+    }
 }
