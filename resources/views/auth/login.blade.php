@@ -38,7 +38,7 @@
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" autofocus placeholder="請輸入帳號">
                                 @if ($errors->has('username'))
                                     <span class="help-block">
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <input id="password" type="password" class="form-control" name="password" required placeholder="請輸入密碼">
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -58,15 +58,16 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-6">
-                                <input id="captcha" class="form-control" type="captcha" name="captcha" value="{{ old('captcha')  }}" required placeholder="請輸入驗證碼">
+                            <div class="col-md-12">
+                                <input id="captcha" class="form-control" type="captcha" name="captcha" value="{{ old('captcha')  }}" required placeholder="請輸入驗證碼(大小寫不同，點一下換圖)">
                                 @if ($errors->has('captcha'))
                                     <span class="help-block">
                                         <strong>驗證碼輸入錯誤</strong>
                                     </span>
                                 @endif
                             </div>
-                            <a href="#">
+                            <br>
+                            <a href="#" alt="按一下換圖">
                                 <span class="col-md-1 refereshrecapcha" onclick="refreshCaptcha()">
                                 {!! captcha_img('flat')  !!}
                                 </span>
@@ -88,8 +89,8 @@
                             }
                         </script>
                         <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary col-md-12">
                                     登入
                                 </button>
                             </div>
@@ -101,7 +102,7 @@
     </div>
 </div>
 <br>
-<footer class="py-5 bg-dark">
+<footer class="py-5 fixed-bottom bg-dark">
     <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; 彰化縣教育處學管科 2018</p>
     </div>

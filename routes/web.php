@@ -31,4 +31,9 @@ Route::group(['middleware' => 'admin'],function(){
 //登入會員
 Route::group(['middleware' => 'auth'],function() {
     Route::get('home', 'HomeController@home')->name('home');
+    Route::get('change_pass', 'HomeController@change_pass')->name('change_pass');
+    Route::get('about', 'HomeController@about')->name('about');
+    Route::get('contact', 'HomeController@contact')->name('contact');
+
+    Route::patch('update_pass/{user}', 'HomeController@update_pass')->name('update_pass');
 });

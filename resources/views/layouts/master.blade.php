@@ -29,7 +29,7 @@
     <div class="row">
 
         <div class="col-lg-3">
-            <h1 class="my-4">-</h1>
+            <h3 class="my-4">Hi ! {{ auth()->user()->name }}</h3>
             @include('layouts.nav')
         </div>
         <!-- /.col-lg-3 -->
@@ -43,23 +43,7 @@
             </div>
             <!-- /.card -->
 
-            <div class="card card-outline-secondary my-4">
-                <div class="card-header">
-                    Product Reviews
-                </div>
-                <div class="card-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
-                    <a href="#" class="btn btn-success">Leave a Review</a>
-                </div>
-            </div>
+
             <!-- /.card -->
 
         </div>
@@ -71,15 +55,20 @@
 <!-- /.container -->
 
 <!-- Footer -->
-<footer class="py-5 bg-dark">
+<footer class="py-5 fixed-bottom bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; 彰化縣教育處學管科 2018</p>
+        <p class="m-0 text-center text-white">
+            Copyright &copy; 彰化縣教育處學管科 2018
+        </p>
+        <p class="m-0 text-center text-white">
+            <a href="{{ route('about') }}">關於</a>　　<a href="{{ route('contact') }}">聯絡</a>
+        </p>
     </div>
     <!-- /.container -->
 </footer>
 
 @include('layouts.footer')
-
+@include('layouts.bootbox')
 </body>
 
 </html>

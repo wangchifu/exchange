@@ -6,21 +6,18 @@
 <div class="collapse navbar-collapse" id="navbarResponsive">
     <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-            <a class="nav-link" href="#">Home
+            <a class="nav-item" href="#">
                 <span class="sr-only">(current)</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="#">上傳公鑰</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
+            <a class="nav-link" href="{{ route('change_pass') }}">更改密碼</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            <a href="#" class="nav-link" onclick="bbconfirm('logout-form','真的要離開了嗎？')">
                 [ 登出 ]
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
