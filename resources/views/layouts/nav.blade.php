@@ -1,12 +1,12 @@
 <?php
-
 $active = [
-    'home'=>"",
-    'freshman'=>"",
-    'graduate'=>"",
-    'outbox'=>"",
-    'inbox'=>"",
-    'system'=>"",
+    'home'=>'',
+    'freshman'=>'',
+    'graduate'=>'',
+    'outbox'=>'',
+    'inbox'=>'',
+    'system'=>'',
+    'about'=>'',
 ];
 $page_at = explode('/',$_SERVER['REQUEST_URI']);
 $active[$page_at[1]] = "active";
@@ -17,7 +17,15 @@ $active[$page_at[1]] = "active";
     <a href="#" class="list-group-item {{ $active['graduate'] }}">上傳畢業生</a>
     <a href="#" class="list-group-item {{ $active['outbox'] }}">寄件匣</a>
     <a href="#" class="list-group-item {{ $active['inbox'] }}">收件匣</a>
-    @if(auth()->user()->admin =="1")
-        <a href="{{ route('system') }}" class="list-group-item {{ $active['system'] }}">系統管理</a>
+    @if(auth()->user()->group_id =="1")
+        <a href="{{ route('system.action') }}" class="list-group-item {{ $active['system'] }}">系統管理</a>
     @endif
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

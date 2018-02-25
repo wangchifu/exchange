@@ -53,15 +53,12 @@
 
 </div>
 <!-- /.container -->
-
+<br>
 <!-- Footer -->
-<footer class="py-4 fixed-bottom bg-dark">
+<footer class="py-5 bg-dark">
     <div class="container">
         <p class="m-0 text-center text-white">
             Copyright &copy; 彰化縣教育處學管科 2018
-        </p>
-        <p class="m-0 text-center text-white">
-            <a href="{{ route('about') }}" class="btn btn-info">關於系統</a>　　<a href="{{ route('contact') }}" class="btn btn-info">聯絡資訊</a>
         </p>
     </div>
     <!-- /.container -->

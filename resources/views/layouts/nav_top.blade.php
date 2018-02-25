@@ -1,4 +1,12 @@
 <a class="navbar-brand" href="{{ url('/') }}">彰化縣學校文件交換系統</a>
+<?php
+$active = [
+    'upload_public'=>'',
+    'change_pass'=>'',
+];
+$page_at = explode('/',$_SERVER['REQUEST_URI']);
+$active[$page_at[1]] = "active";
+?>
 @if(auth()->check())
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -11,10 +19,10 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">上傳公鑰</a>
+            <a class="nav-link {{ $active['upload_public'] }}" href="#">上傳公鑰</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('change_pass') }}">更改密碼</a>
+            <a class="nav-link {{ $active['change_pass'] }}" href="{{ route('change_pass') }}">更改密碼</a>
         </li>
         <li class="nav-item">
             <a href="#" class="nav-link" onclick="bbconfirm('logout-form','真的要離開了嗎？')">
