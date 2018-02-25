@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('page-title',"帳號設定 | 彰化縣學校文件交換系統")
+@section('page-title',"更改密碼 | 彰化縣學校文件交換系統")
 
 @section('content')
     <h1>更改密碼</h1>

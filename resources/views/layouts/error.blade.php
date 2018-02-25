@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('page-title',"有東西錯了 | 彰化縣學校文件交換系統")
+@section('page-title',"錯誤 | 彰化縣學校文件交換系統")
 
 @section('content')
   <h1>有東西錯了</h1>

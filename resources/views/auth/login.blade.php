@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>彰化縣學校文件交換系統</title>
+    <title>登入 | 彰化縣學校文件交換系統</title>
 
     @include('layouts.header')
 

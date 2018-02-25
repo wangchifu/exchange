@@ -3,7 +3,7 @@
 @section('page-title',"聯絡 | 彰化縣學校文件交換系統")
 
 @section('content')
-    <h1>聯絡</h1>
+    <h1>聯絡資訊</h1>
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
             Contact

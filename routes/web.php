@@ -25,7 +25,7 @@ Route::get('login/refereshcapcha', 'Auth\LoginController@refereshcapcha');
 
 //管理者
 Route::group(['middleware' => 'admin'],function(){
-    Route::get('admin', 'HomeController@admin')->name('admin');
+    Route::get('system', 'HomeController@system')->name('system');
 });
 
 //登入會員
