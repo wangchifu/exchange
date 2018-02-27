@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Action;
 use App\Group;
 use App\User;
+use App\UserBase;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -20,7 +22,11 @@ class AdminController extends Controller
 
     public function action()
     {
-        return view('systems.action');
+        $actions = Action::orderBy('id','DESC')->paginate('10');
+        $data = [
+            'actions'=>$actions,
+        ];
+        return view('systems.action',$data);
     }
 
     public function user(Request $request)

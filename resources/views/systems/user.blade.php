@@ -21,7 +21,7 @@
         <div class="card-body">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link {{ $active['action'] }}" href="{{ route('system.action') }}">新增任務</a>
+                    <a class="nav-link {{ $active['action'] }}" href="{{ route('system.action') }}">任務管理</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ $active['user'] }}" href="{{ route('system.user') }}">帳號管理</a>
