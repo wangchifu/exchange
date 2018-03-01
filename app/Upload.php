@@ -13,4 +13,8 @@ class Upload extends Model
         'file_name',
         'upload_time',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

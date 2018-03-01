@@ -8,6 +8,7 @@ class Action extends Model
 {
     protected $fillable = [
         'study_year',
+        'user_id',
         'kind',
         'name',
         'icon',
@@ -15,4 +16,8 @@ class Action extends Model
         'groups',
         'enable',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

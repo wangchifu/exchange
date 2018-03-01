@@ -16,6 +16,7 @@ class CreateActionsTable extends Migration
         Schema::create('actions', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('study_year');
+            $table->unsignedInteger('user_id');
             $table->string('kind')->nullable();
             $table->string('name');
             $table->string('icon');

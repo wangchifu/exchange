@@ -22,4 +22,8 @@ class NewStuData extends Model
         'stu_address',
         'stu_ps',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

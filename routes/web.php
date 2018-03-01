@@ -23,11 +23,8 @@ Route::get('login/refereshcapcha', 'Auth\LoginController@refereshcapcha');
 
 
 
-//管理者
+//最高管理者
 Route::group(['middleware' => 'admin'],function(){
-    Route::get('system/action', 'AdminController@action')->name('system.action');
-
-
     Route::get('system/user', 'AdminController@user')->name('system.user');
     Route::post('system/user/store', 'AdminController@user_store')->name('system.user_store');
     Route::patch('system/user/{user}', 'AdminController@user_update')->name('system.user_update');
@@ -39,6 +36,12 @@ Route::group(['middleware' => 'admin'],function(){
     Route::patch('system/group/{group}', 'AdminController@group_update')->name('system.group_update');
     Route::get('system/group/{group}/delete', 'AdminController@group_delete')->name('system.group_delete');
 });
+
+//管理者
+Route::group(['middleware' => 'group1'],function() {
+    Route::get('system/action', 'AdminController@action')->name('system.action');
+});
+
 
 //登入會員
 Route::group(['middleware' => 'auth'],function() {

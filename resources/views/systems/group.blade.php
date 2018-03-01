@@ -22,12 +22,14 @@
                 <li class="nav-item">
                     <a class="nav-link {{ $active['action'] }}" href="{{ route('system.action') }}">任務管理</a>
                 </li>
+                @if(auth()->user()->admin == "1")
                 <li class="nav-item">
                     <a class="nav-link {{ $active['user'] }}" href="{{ route('system.user') }}">帳號管理</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ $active['group'] }}" href="{{ route('system.group') }}">群組管理</a>
                 </li>
+                @endif
             </ul>
             <br>
             <table class="table table-light">

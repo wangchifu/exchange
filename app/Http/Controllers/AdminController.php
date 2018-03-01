@@ -22,9 +22,36 @@ class AdminController extends Controller
 
     public function action()
     {
-        $actions = Action::orderBy('id','DESC')->paginate('10');
+        if(auth()->user()->admin == "1") {
+            $actions = Action::orderBy('id', 'DESC')->paginate('10');
+        }elseif(auth()->user()->group_id == "1"){
+            $actions = Action::where('user_id','=',auth()->user()->id)->orderBy('id', 'DESC')->paginate('10');
+        }
+
+        $groups = Group::where('id','<>','1')
+            ->orderBy('id')
+            ->get();
+            //->pluck('name', 'id')->toArray();
+        foreach($groups as $group){
+            $groups_menu[$group->id] = $group->name."(".$group->id.")";
+        }
+
+        $kinds = [
+            'newstud'=>'新生',
+            'other'=>'其他'
+        ];
+
+        $file_types = [
+            'csv'=>'csv',
+            'pdf'=>'pdf',
+            'xls'=>'xls',
+            'ok'=>'不限'
+        ];
         $data = [
             'actions'=>$actions,
+            'kinds'=>$kinds,
+            'groups_menu'=>$groups_menu,
+            'file_types'=>$file_types,
         ];
         return view('systems.action',$data);
     }
