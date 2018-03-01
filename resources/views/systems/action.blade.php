@@ -49,7 +49,7 @@
                 <th width="160">
                     對象(可多選)
                 </th>
-                <th>
+                <th colspan="2">
                     狀態
                 </th>
                 </thead>
@@ -120,7 +120,11 @@
                         @else
                             <a href="#" class="btn btn-warning">已停</a>
                         @endif
-                        <a href="#" class="btn btn-danger">刪</a>
+                    </td>
+                    <td>
+                        {{ Form::open(['route'=>['system.action_destroy',$action->id], 'method' => 'DELETE','id'=>'action_destroy'.$action->id,'onsubmit'=>'return false;']) }}
+                        <a href="#" class="btn btn-danger" onclick="bbconfirm('action_destroy{{ $action->id }}','確定刪除？')">刪</a>
+                        {{ Form::close() }}
                     </td>
                 </tr>
                 @endforeach

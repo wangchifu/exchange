@@ -78,6 +78,12 @@ class AdminController extends Controller
         return redirect()->route('system.action');
     }
 
+    public function action_destroy(Action $action)
+    {
+        $action->delete();
+        return redirect()->route('system.action');
+    }
+
     public function user(Request $request)
     {
         $groups = Group::all()->pluck('name', 'id')->toArray();

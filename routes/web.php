@@ -41,6 +41,7 @@ Route::group(['middleware' => 'admin'],function(){
 Route::group(['middleware' => 'group1'],function() {
     Route::get('system/action', 'AdminController@action')->name('system.action');
     Route::post('system/action', 'AdminController@action_store')->name('system.action_store');
+    Route::delete('system/action/{action}', 'AdminController@action_destroy')->name('system.action_destroy');
 });
 
 
@@ -53,4 +54,7 @@ Route::group(['middleware' => 'auth'],function() {
     Route::get('upload_public', 'HomeController@upload_public')->name('upload_public');
 
     Route::patch('update_pass/{user}', 'HomeController@update_pass')->name('update_pass');
+
+    Route::get('new_student', 'NewStudentController@index')->name('new_student.index');
+
 });
