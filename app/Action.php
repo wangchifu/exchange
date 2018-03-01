@@ -11,7 +11,6 @@ class Action extends Model
         'user_id',
         'kind',
         'name',
-        'icon',
         'file_type',
         'groups',
         'enable',

@@ -56,6 +56,28 @@ class AdminController extends Controller
         return view('systems.action',$data);
     }
 
+    public function action_store(Request $request)
+    {
+        $att['study_year'] = $request->input('study_year');
+        $att['kind'] = $request->input('kind');
+        $att['name'] = $request->input('name');
+        if($att['kind'] == "newstud") {
+            $att['file_type'] = $request->input('file_type2');
+        }else{
+            $att['file_type'] = $request->input('file_type1');
+        }
+        $groups = "";
+        foreach($request->input('groups') as $k=>$v){
+            $groups .= $v.",";
+        }
+        $groups = substr($groups,0,-1);
+        $att['groups'] = $groups;
+        $att['enable'] = 1;
+        $att['user_id'] = auth()->user()->id;
+        Action::create($att);
+        return redirect()->route('system.action');
+    }
+
     public function user(Request $request)
     {
         $groups = Group::all()->pluck('name', 'id')->toArray();

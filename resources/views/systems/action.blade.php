@@ -54,7 +54,7 @@
                 </th>
                 </thead>
                 <tbody>
-                {{ Form::open(['route'=>'system.user_store', 'method' => 'POST','id'=>'user_store','onsubmit'=>'return false;']) }}
+                {{ Form::open(['route'=>'system.action_store', 'method' => 'POST','id'=>'action_store','onsubmit'=>'return false;']) }}
                 <tr>
                     <td>
                         {{ Form::text('study_year', null, ['id' => 'study_year', 'class' => 'form-control', 'placeholder' => '學年','required'=>'required']) }}
@@ -66,14 +66,14 @@
                         {{ Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'placeholder' => '項目名稱','required'=>'required']) }}
                     </td>
                     <td>
-                        {{ Form::select('file_type', $file_types, null, ['id' => 'file_types', 'class' => 'form-control','required'=>'required','style'=>'display:none']) }}
-                        {{ Form::text('file_type','csv', ['id' => 'newstud_file', 'class' => 'form-control','readonly'=>'readonly','required'=>'required']) }}
+                        {{ Form::select('file_type1', $file_types, null, ['id' => 'file_types', 'class' => 'form-control','required'=>'required','style'=>'display:none']) }}
+                        {{ Form::text('file_type2','csv', ['id' => 'newstud_file', 'class' => 'form-control','readonly'=>'readonly','required'=>'required']) }}
                     </td>
                     <td>
                         {{ Form::select('groups[]', $groups_menu, null, ['id' => 'groups[]', 'class' => 'form-control','multiple'=>'multiple','required'=>'required']) }}
                     </td>
                     <td>
-                        <a href="#" class="btn btn-success">新增</a>
+                        <a href="#" class="btn btn-success" onclick="bbconfirm('action_store','確定？')">新增</a>
                     </td>
                 </tr>
                 {{ Form::close() }}
@@ -105,7 +105,11 @@
                         {{ $action->name }}
                     </td>
                     <td>
-                        {{ $action->file_type }}
+                        @if($action->file_type == "ok")
+                            不限
+                        @else
+                            {{ $action->file_type }}
+                        @endif
                     </td>
                     <td>
                         {{ $action->groups }}

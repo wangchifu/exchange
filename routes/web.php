@@ -40,6 +40,7 @@ Route::group(['middleware' => 'admin'],function(){
 //管理者
 Route::group(['middleware' => 'group1'],function() {
     Route::get('system/action', 'AdminController@action')->name('system.action');
+    Route::post('system/action', 'AdminController@action_store')->name('system.action_store');
 });
 
 

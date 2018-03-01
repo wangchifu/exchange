@@ -19,7 +19,6 @@ class CreateActionsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('kind')->nullable();
             $table->string('name');
-            $table->string('icon');
             $table->string('file_type')->nullable();
             $table->string('groups');
             $table->unsignedInteger('enable');
