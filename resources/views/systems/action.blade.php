@@ -122,9 +122,11 @@
                         @endif
                     </td>
                     <td>
+                        @if(empty($action->uploads->first()))
                         {{ Form::open(['route'=>['system.action_destroy',$action->id], 'method' => 'DELETE','id'=>'action_destroy'.$action->id,'onsubmit'=>'return false;']) }}
                         <a href="#" class="btn btn-danger" onclick="bbconfirm('action_destroy{{ $action->id }}','確定刪除？')">刪</a>
                         {{ Form::close() }}
+                        @endif
                     </td>
                 </tr>
                 @endforeach

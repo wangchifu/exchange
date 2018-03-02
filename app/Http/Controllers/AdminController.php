@@ -66,11 +66,11 @@ class AdminController extends Controller
         }else{
             $att['file_type'] = $request->input('file_type1');
         }
-        $groups = "";
+        $groups = ",";
         foreach($request->input('groups') as $k=>$v){
             $groups .= $v.",";
         }
-        $groups = substr($groups,0,-1);
+        //$groups = substr($groups,0,-1);
         $att['groups'] = $groups;
         $att['enable'] = 1;
         $att['user_id'] = auth()->user()->id;

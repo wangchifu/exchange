@@ -62,29 +62,19 @@
                     <td>
                         @if($action->enable == "1")
                             <p class="text-primary">開啟</p>
-                        @elseif($action->enable == "0")
+                        @else
                             關閉
                         @endif
                     </td>
                     <td>
                         @if($action->enable == "1")
                             @if(empty($upload))
-                                {{ Form::open(['route'=>'new_student.upload', 'method' => 'POST','id'=>'upload'.$action->id]) }}
-                                <a href="#" class="btn btn-success" onclick="document.getElementById('upload{{ $action->id }}').submit();">上傳</a>
-                                <input type="hidden" name="action_id" value="{{ $action->id }}">
-                                <input type="hidden" name="study_year" value="{{ $action->study_year }}">
-                                <input type="hidden" name="action_name" value="{{ $action->name }}">
-                                {{ Form::close() }}
+                            <a href="#" class="btn btn-success">上傳</a>
+                            @else
+                            <a href="#" class="btn btn-warning">修改</a>
                             @endif
                         @else
-                            @if(!empty($upload))
-                            {{ Form::open(['route'=>'new_student.show', 'method' => 'POST','id'=>'show'.$action->id,'target'=>'_blank']) }}
-                            <a href="#" class="btn btn-info" onclick="document.getElementById('show{{ $action->id }}').submit();">檢視</a>
-                            <input type="hidden" name="action_id" value="{{ $action->id }}">
-                            <input type="hidden" name="study_year" value="{{ $action->study_year }}">
-                            <input type="hidden" name="action_name" value="{{ $action->name }}">
-                            {{ Form::close() }}
-                            @endif
+                            <a href="#" class="btn btn-info">檢視</a>
                         @endif
                     </td>
                 </tr>

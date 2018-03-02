@@ -56,5 +56,11 @@ Route::group(['middleware' => 'auth'],function() {
     Route::patch('update_pass/{user}', 'HomeController@update_pass')->name('update_pass');
 
     Route::get('new_student', 'NewStudentController@index')->name('new_student.index');
+    Route::post('new_student/upload', 'NewStudentController@upload')->name('new_student.upload');
+    Route::post('new_student/show', 'NewStudentController@show')->name('new_student.show');
+    Route::get('new_student/download_sample', 'NewStudentController@download_sample')->name('new_student.download_sample');
+
+
+    Route::get('other_action', 'OtherActionController@index')->name('other_action.index');
 
 });

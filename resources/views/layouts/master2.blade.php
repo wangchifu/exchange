@@ -27,14 +27,7 @@
 <div class="container">
 
     <div class="row">
-
-        <div class="col-lg-3">
-            <h3 class="my-4">你好 Hello</h3>
-            @include('layouts.nav')
-        </div>
-        <!-- /.col-lg-3 -->
-
-        <div class="col-lg-9">
+        <div class="col-lg-12">
 
             <div class="card mt-4">
                 <div class="card-body">

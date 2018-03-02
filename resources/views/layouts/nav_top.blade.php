@@ -19,6 +19,9 @@ $active[$page_at[1]] = "active";
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="#" onclick="hi();"><img src="{{ asset('img/user.svg') }}" width="25"> [{{ auth()->user()->name }}]</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link {{ $active['upload_public'] }}" href="#">上傳公鑰</a>
         </li>
         <li class="nav-item">
@@ -34,4 +37,14 @@ $active[$page_at[1]] = "active";
         </li>
     </ul>
 </div>
+
+<script>
+    var i=0;
+    function hi()
+    {
+        i++;
+        alert('Hi, {{ auth()->user()->name }}, 你按了'+ i +'下');
+    }
+</script>
+
 @endif

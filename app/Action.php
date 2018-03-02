@@ -19,4 +19,9 @@ class Action extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function uploads()
+    {
+        return $this->hasMany(Upload::class);
+    }
 }

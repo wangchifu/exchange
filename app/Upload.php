@@ -17,4 +17,8 @@ class Upload extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function action()
+    {
+        return $this->belongsTo(Action::class);
+    }
 }
