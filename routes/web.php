@@ -42,6 +42,7 @@ Route::group(['middleware' => 'group1'],function() {
     Route::get('system/action', 'AdminController@action')->name('system.action');
     Route::post('system/action', 'AdminController@action_store')->name('system.action_store');
     Route::delete('system/action/{action}', 'AdminController@action_destroy')->name('system.action_destroy');
+    Route::patch('system/action/{action}',  'AdminController@action_update')->name('system.action_update');
 });
 
 
@@ -57,10 +58,12 @@ Route::group(['middleware' => 'auth'],function() {
 
     Route::get('new_student', 'NewStudentController@index')->name('new_student.index');
     Route::post('new_student/upload', 'NewStudentController@upload')->name('new_student.upload');
+    Route::post('new_student/do_upload/{action}',  'NewStudentController@do_upload')->name('new_student.do_upload');
     Route::post('new_student/show', 'NewStudentController@show')->name('new_student.show');
     Route::get('new_student/download_sample', 'NewStudentController@download_sample')->name('new_student.download_sample');
 
 
     Route::get('other_action', 'OtherActionController@index')->name('other_action.index');
+
 
 });

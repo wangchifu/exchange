@@ -6,7 +6,7 @@
     <h1>{{ $study_year }} {{ $action_name }}</h1>
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
-            步驟(1/2)：上傳新生資料
+            <span class="btn btn-dark">步驟 (1)：上傳新生資料</span>　　<span class="btn btn-dark disabled">步驟 (2)：修改姓名亂碼及填寫超出生日區間原因</span>
         </div>
         <div class="card-body">
             <h4>說明：</h4>
@@ -26,14 +26,16 @@
                 </tr>
                 </thead>
                 <tbody>
+                {{ Form::open(['route'=>['new_student.do_upload',$action_id], 'method' => 'POST','id'=>'upload','files'=>true,'onsubmit'=>'return false;']) }}
                 <tr>
                     <td>
-                        <input type="file" name="file">
+                        <input type="file" name="csv">
                     </td>
                     <td>
-                        <a href="#" class="btn btn-success">確定上傳</a>
+                        <a href="#" class="btn btn-success" onclick="bbconfirm('upload','確定上傳嗎？')">確定上傳</a>
                     </td>
                 </tr>
+                {{ Form::close() }}
                 </tbody>
             </table>
         </div>

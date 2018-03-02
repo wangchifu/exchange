@@ -27,7 +27,7 @@
                     <th>
                         狀態
                     </th>
-                    <th>
+                    <th colspan="2">
                         動作
                     </th>
                 </tr>
@@ -68,23 +68,22 @@
                     </td>
                     <td>
                         @if($action->enable == "1")
-                            @if(empty($upload))
-                                {{ Form::open(['route'=>'new_student.upload', 'method' => 'POST','id'=>'upload'.$action->id]) }}
-                                <a href="#" class="btn btn-success" onclick="document.getElementById('upload{{ $action->id }}').submit();">上傳</a>
-                                <input type="hidden" name="action_id" value="{{ $action->id }}">
-                                <input type="hidden" name="study_year" value="{{ $action->study_year }}">
-                                <input type="hidden" name="action_name" value="{{ $action->name }}">
-                                {{ Form::close() }}
-                            @endif
-                        @else
-                            @if(!empty($upload))
+                            {{ Form::open(['route'=>'new_student.upload', 'method' => 'POST','id'=>'upload'.$action->id]) }}
+                            <a href="#" class="btn btn-success" onclick="document.getElementById('upload{{ $action->id }}').submit();">上傳</a>
+                            <input type="hidden" name="action_id" value="{{ $action->id }}">
+                            <input type="hidden" name="study_year" value="{{ $action->study_year }}">
+                            <input type="hidden" name="action_name" value="{{ $action->name }}">
+                            {{ Form::close() }}
+                        @endif
+                    </td>
+                    <td>
+                        @if(!empty($upload))
                             {{ Form::open(['route'=>'new_student.show', 'method' => 'POST','id'=>'show'.$action->id,'target'=>'_blank']) }}
                             <a href="#" class="btn btn-info" onclick="document.getElementById('show{{ $action->id }}').submit();">檢視</a>
                             <input type="hidden" name="action_id" value="{{ $action->id }}">
                             <input type="hidden" name="study_year" value="{{ $action->study_year }}">
                             <input type="hidden" name="action_name" value="{{ $action->name }}">
                             {{ Form::close() }}
-                            @endif
                         @endif
                     </td>
                 </tr>

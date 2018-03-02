@@ -6,6 +6,7 @@
     <h1>{{ $study_year }} {{ $action_name }}</h1>
             <a href="#" class="btn btn-dark" onclick="window.close();">關閉</a><br><br>
             <h2>{{ $new_stu_data[0]->stu_school }}</h2>
+    <h3>(共上傳 {{ $num }} 位學生，{{ $boy_num }} 男 {{ $girl_num }} 女。{{ $out_num }} 位學生超過生日區間)</h3>
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -28,14 +29,15 @@
                         住址
                     </th>
                     <th width="200" nowrap>
-                        備註
+                        原因
                     </th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php $i=1; ?>
                 @foreach($new_stu_data as $new_stu)
-                <tr>
+                    <?php $bgcolor = (empty($new_stu->stu_ps))?"":"#FFE8E8"; ?>
+                <tr bgcolor="{{ $bgcolor }}">
                     <td>
                         {{ $i }}
                     </td>

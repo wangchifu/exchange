@@ -84,6 +84,13 @@ class AdminController extends Controller
         return redirect()->route('system.action');
     }
 
+    public function action_update(Request $request,Action $action)
+    {
+        $att['enable'] = $request->input('enable');
+        $action->update($att);
+        return redirect()->route('system.action');
+    }
+
     public function user(Request $request)
     {
         $groups = Group::all()->pluck('name', 'id')->toArray();
