@@ -60,10 +60,12 @@ Route::group(['middleware' => 'auth'],function() {
     Route::post('new_student/upload', 'NewStudentController@upload')->name('new_student.upload');
     Route::post('new_student/do_upload/{action}',  'NewStudentController@do_upload')->name('new_student.do_upload');
     Route::post('new_student/show', 'NewStudentController@show')->name('new_student.show');
+    Route::post('new_student/store',  'NewStudentController@store')->name('new_student.store');
     Route::get('new_student/download_sample', 'NewStudentController@download_sample')->name('new_student.download_sample');
 
-
     Route::get('other_action', 'OtherActionController@index')->name('other_action.index');
-
+    Route::get('other_action/upload/{action}',  'OtherActionController@upload')->name('other_action.upload');
+    Route::post('other_action/store',  'OtherActionController@store')->name('other_action.store');
+    Route::get('other_action/download/{upload}',  'OtherActionController@download')->name('other_action.download');
 
 });

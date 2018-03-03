@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master2')
 
 @section('page-title',"錯誤 | 彰化縣學校文件交換系統")
 
@@ -9,7 +9,7 @@
       Something is wrong...
     </div>
     <div class="card-body">
-      <p class="text-danger">{{ $words }}</p>
+      <h2 class="text-danger">{{ $words }}</h2>
       <a href="#" class="btn btn-secondary" onclick="history.back();">返回</a>
     </div>
   </div>

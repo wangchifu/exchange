@@ -1,33 +1,33 @@
 @extends('layouts.master')
 
-@section('page-title',"新生名單 | 彰化縣學校文件交換系統")
+@section('page-title',"其他任務 | 彰化縣學校文件交換系統")
 
 @section('content')
-    <h1>新生名單</h1>
+    <h1>其他任務</h1>
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
-            New Students
+            Other Actions
         </div>
         <div class="card-body">
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>
+                    <th nowrap>
                         學年
                     </th>
-                    <th>
-                        新生上傳任務名稱
+                    <th nowrap>
+                        任務名稱
                     </th>
-                    <th>
+                    <th nowrap>
                         檔案
                     </th>
-                    <th>
+                    <th nowrap>
                         上傳時間
                     </th>
-                    <th>
+                    <th nowrap>
                         狀態
                     </th>
-                    <th>
+                    <th nowrap colspan="2">
                         動作
                     </th>
                 </tr>
@@ -68,13 +68,12 @@
                     </td>
                     <td>
                         @if($action->enable == "1")
-                            @if(empty($upload))
-                            <a href="#" class="btn btn-success">上傳</a>
-                            @else
-                            <a href="#" class="btn btn-warning">修改</a>
-                            @endif
-                        @else
-                            <a href="#" class="btn btn-info">檢視</a>
+                            <a href="#" class="btn btn-success" onclick="openwindow('{{ route('other_action.upload',$action->id) }}')">上傳</a>
+                        @endif
+                    </td>
+                    <td>
+                        @if(!empty($upload))
+                            <a href="{{ route('other_action.download',$upload->id) }}" class="btn btn-info">下載</a>
                         @endif
                     </td>
                 </tr>
@@ -84,4 +83,10 @@
             {{ $actions->links('vendor.pagination.bootstrap-4') }}
         </div>
     </div>
+    <script>
+        function openwindow(url_str){
+            window.open (url_str,"上傳檔案","menubar=0,status=0,directories=0,location=0,top=20,left=20,toolbar=0,scrollbars=1,resizable=1,Width=800,Height=400");
+        }
+
+    </script>
 @endsection

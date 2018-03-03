@@ -36,7 +36,7 @@
                 <tbody>
                 <?php $i=1; ?>
                 @foreach($new_stu_data as $new_stu)
-                    <?php $bgcolor = (empty($new_stu->stu_ps))?"":"#FFE8E8"; ?>
+                    <?php $bgcolor = (empty($out[$new_stu->stu_sn]))?"":"#FFE8E8"; ?>
                 <tr bgcolor="{{ $bgcolor }}">
                     <td>
                         {{ $i }}

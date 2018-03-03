@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Action;
 use App\NewStuData;
+use App\Upload;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -43,7 +44,61 @@ class NewStudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $stu_sn = $request->input('stu_sn');
+        $stu_name = $request->input('stu_name');
+        $stu_sex = $request->input('stu_sex');
+        $stu_id = $request->input('stu_id');
+        $stu_birthday = $request->input('stu_birthday');
+        $stu_date = $request->input('stu_date');
+        $stu_school = $request->input('stu_school');
+        $stu_address = $request->input('stu_address');
+        $stu_ps = $request->input('stu_ps');
+        $att['action_id'] = $request->input('action_id');
+        $att['user_id'] = auth()->user()->id;
+        $att['username'] = auth()->user()->username;
+        $att['group_id'] = auth()->user()->group_id;
+        $create_all = [];
+        foreach($stu_sn as $k=>$v){
+            $att['stu_sn'] = $stu_sn[$k];
+            $att['stu_name'] = $stu_name[$k];
+            $att['stu_sex'] = $stu_sex[$k];
+            $att['stu_id'] = $stu_id[$k];
+            $att['stu_birthday'] = $stu_birthday[$k];
+            $att['stu_date'] = $stu_date[$k];
+            $att['stu_school'] = $stu_school[$k];
+            $att['stu_address'] = $stu_address[$k];
+            if(empty($stu_ps[$k])){
+                $att['stu_ps'] = "";
+            }else{
+                $att['stu_ps'] = $stu_ps[$k];
+            }
+
+            $new_one = [
+                'user_id'=>$att['user_id'],
+                'username'=>$att['username'],
+                'group_id'=>$att['group_id'],
+                'action_id'=>$att['action_id'],
+                'stu_sn'=>$att['stu_sn'],
+                'stu_name'=>$att['stu_name'],
+                'stu_sex'=>$att['stu_sex'],
+                'stu_id'=>$att['stu_id'],
+                'stu_birthday'=>$att['stu_birthday'],
+                'stu_date'=>$att['stu_date'],
+                'stu_school'=>$att['stu_school'],
+                'stu_address'=>$att['stu_address'],
+                'stu_ps'=>$att['stu_ps'],
+            ];
+            array_push($create_all, $new_one);
+        }
+        NewStuData::insert($create_all);
+        $att2['action_id'] = $att['action_id'];
+        $att2['user_id'] = $att['user_id'];
+        $att2['username'] = $att['username'];
+        $att2['file_name'] = $att['action_id']."_".auth()->user()->group_id."_".auth()->user()->username.".csv";
+        $att2['upload_time'] = date("Y/m/d H:i:s");
+        Upload::create($att2);
+
+        return redirect()->route('new_student.index');
     }
 
     /**
@@ -82,6 +137,7 @@ class NewStudentController extends Controller
             $stud_birthday = str_replace('.','',$new_stu->stu_birthday);
 
             if($stud_birthday<$birthday1 or $stud_birthday>$birthday2){
+                $out[$new_stu->stu_sn] = 1;
                 $out_num++;
             }
         }
@@ -94,6 +150,7 @@ class NewStudentController extends Controller
             'boy_num'=>$boy_num,
             'girl_num'=>$girl_num,
             'out_num'=>$out_num,
+            'out'=>$out,
         ];
         return view('new_students.show',$data);
     }
@@ -113,6 +170,40 @@ class NewStudentController extends Controller
 
     public function do_upload(Request $request,Action $action)
     {
+        if ($request->hasFile('csv')) {
+            $file = $request->file('csv');
+            $folder = 'uploads/'.$action->id;
+
+            $info = [
+                //'mime-type' => $file->getMimeType(),
+                'original_filename' => $file->getClientOriginalName(),
+                //'extension' => $file->getClientOriginalExtension(),
+                'size' => $file->getClientSize(),
+            ];
+            if ($info['size'] > 2100000)
+            {
+                $words = "檔案大小超過2MB ！？";
+                return view('layouts.error',compact('words'));
+            } else {
+                $filename = $action->id."_".auth()->user()->group_id."_".auth()->user()->username.".csv";
+                $file->storeAs('public/' . $folder, $filename);
+            }
+        }else{
+            $words = "沒有檔案 ？？";
+            return view('layouts.error',compact('words'));
+        }
+
+        Upload::where('user_id','=',auth()->user()->id)
+            ->where('username','=',auth()->user()->username)
+            ->where('action_id','=',$action->id)
+            ->delete();
+
+        NewStuData::where('user_id','=',auth()->user()->id)
+            ->where('username','=',auth()->user()->username)
+            ->where('group_id','=',auth()->user()->group_id)
+            ->where('action_id','=',$action->id)
+            ->delete();
+
         $filePath = $request->file('csv')->getRealPath();
         $new_stu_data = Excel::load($filePath, function ($reader) {
         })->get();
@@ -158,6 +249,7 @@ class NewStudentController extends Controller
             'girl_num'=>$girl_num,
             'out_num'=>$out_num,
             'out'=>$out,
+            'file'=>$file,
         ];
         return view('new_students.do_upload',$data);
     }

@@ -12,22 +12,22 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>
+                    <th nowrap>
                         學年
                     </th>
-                    <th>
+                    <th nowrap>
                         新生上傳任務名稱
                     </th>
-                    <th>
+                    <th nowrap>
                         檔案
                     </th>
-                    <th>
+                    <th nowrap>
                         上傳時間
                     </th>
-                    <th>
+                    <th nowrap>
                         狀態
                     </th>
-                    <th colspan="2">
+                    <th nowrap colspan="2">
                         動作
                     </th>
                 </tr>
