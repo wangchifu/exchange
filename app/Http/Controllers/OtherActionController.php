@@ -119,10 +119,12 @@ class OtherActionController extends Controller
         if($upload->user_id == auth()->user()->id) {
             $file_path = $upload->action_id . "/" . $upload->file_name;
             $realFile = "../storage/app/public/uploads/" . $file_path;
-            header("Content-type:application");
-            header("Content-Length: " . (string)(filesize($realFile)));
-            header("Content-Disposition: attachment; filename=" . $upload->file_name);
-            readfile($realFile);
+            //header("Content-type:application");
+            //header("Content-Length: " . (string)(filesize($realFile)));
+            //header("Content-Disposition: attachment; filename=" . $upload->file_name);
+            //readfile($realFile);
+            return response()->download($realFile);
+
         }else{
             $words = "你想做什麼？";
             return view('layouts.error',compact('words'));
