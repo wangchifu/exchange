@@ -142,7 +142,10 @@
                         {{ $action->groups }}
                     </td>
                     <td>
-                        <a href="#" class="btn btn-secondary">{{ $action->uploads->count() }}</a>
+                        {{ Form::open(['route'=>['system.show_upload'], 'method' => 'POST','id'=>'show_upload'.$action->id]) }}
+                        <a href="#" class="btn btn-secondary" onclick="document.getElementById('show_upload{{ $action->id }}').submit();">{{ $action->uploads->count() }}</a>
+                        <input type="hidden" name="action_id" value="{{ $action->id }}">
+                        {{ Form::close() }}
                     </td>
                     <td nowrap>
                         @if($action->enable == "1")

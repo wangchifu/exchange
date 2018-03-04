@@ -43,6 +43,7 @@ Route::group(['middleware' => 'group1'],function() {
     Route::post('system/action', 'AdminController@action_store')->name('system.action_store');
     Route::delete('system/action/{action}', 'AdminController@action_destroy')->name('system.action_destroy');
     Route::patch('system/action/{action}',  'AdminController@action_update')->name('system.action_update');
+    Route::post('system/show_upload',  'AdminController@show_upload')->name('system.show_upload');
 });
 
 
@@ -67,5 +68,7 @@ Route::group(['middleware' => 'auth'],function() {
     Route::get('other_action/upload/{action}',  'OtherActionController@upload')->name('other_action.upload');
     Route::post('other_action/store',  'OtherActionController@store')->name('other_action.store');
     Route::get('other_action/download/{upload}',  'OtherActionController@download')->name('other_action.download');
+
+
 
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Action;
 use App\Group;
+use App\Upload;
 use App\User;
 use App\UserBase;
 use Illuminate\Http\Request;
@@ -89,6 +90,44 @@ class AdminController extends Controller
         $att['enable'] = $request->input('enable');
         $action->update($att);
         return redirect()->route('system.action');
+    }
+
+    public function show_upload(Request $request)
+    {
+        $action = Action::where('id','=',$request->input('action_id'))->first();
+        $group_array = explode(',',$action->groups);
+        $groups = [];
+        foreach($group_array as $k=>$v){
+            if(!empty($v)){
+                array_push($groups,$v);
+            }
+        }
+
+        $users = User::whereIn('group_id',$groups)
+            ->orderBy('group_id')
+            ->orderBy('username')
+            ->get();
+        foreach($users as $user){
+            $schools[$user->id] = $user->name;
+        }
+        $uploads = Upload::where('action_id','=',$action->id)
+            ->orderBy('username')
+            ->get();
+        $data = [
+            'action'=>$action,
+            'uploads'=>$uploads,
+            'schools'=>$schools,
+        ];
+        return view('systems.show_upload',$data);
+    }
+
+    public function downloadZip()
+    {
+        $files = glob(public_path('js/*'));
+        Zipper::make('mydir/mytest3.zip')->add($files);
+
+
+        return response()->download(public_path('mydir/mytest3.zip'));
     }
 
     public function user(Request $request)

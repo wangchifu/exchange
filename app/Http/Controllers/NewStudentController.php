@@ -258,10 +258,12 @@ class NewStudentController extends Controller
     {
         $filename = "newstud_sample.csv";
         $realFile = public_path('sample/newstud_sample.csv');
-        header("Content-type:application");
-        header("Content-Length: " .(string)(filesize($realFile)));
-        header("Content-Disposition: attachment; filename=".$filename);
-        readfile($realFile);
+        //header("Content-type:application");
+        //header("Content-Length: " .(string)(filesize($realFile)));
+        //header("Content-Disposition: attachment; filename=".$filename);
+        //readfile($realFile);
+
+        return response()->download($realFile);
     }
 
     /**
