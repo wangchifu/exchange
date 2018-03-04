@@ -73,7 +73,7 @@
                     </td>
                     <td>
                         @if(!empty($upload))
-                            <a href="{{ route('other_action.download',$upload->id) }}" class="btn btn-info">下載</a>
+                            <a href="{{ route('other_action.download',$upload->id) }}" class="btn btn-primary">下載</a>
                         @endif
                     </td>
                 </tr>

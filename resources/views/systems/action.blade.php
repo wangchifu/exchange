@@ -90,7 +90,7 @@
                         任務名稱
                     </th>
                     <th width="100" nowrap>
-                        請選檔案
+                        檔案類型
                     </th>
                     <th nowrap>
                         對象
@@ -142,10 +142,7 @@
                         {{ $action->groups }}
                     </td>
                     <td>
-                        {{ Form::open(['route'=>['system.show_upload'], 'method' => 'POST','id'=>'show_upload'.$action->id]) }}
-                        <a href="#" class="btn btn-secondary" onclick="document.getElementById('show_upload{{ $action->id }}').submit();">{{ $action->uploads->count() }}</a>
-                        <input type="hidden" name="action_id" value="{{ $action->id }}">
-                        {{ Form::close() }}
+                        <a href="{{ route('system.show_upload',$action->id) }}" class="btn btn-secondary">{{ $action->uploads->count() }}</a>
                     </td>
                     <td nowrap>
                         @if($action->enable == "1")

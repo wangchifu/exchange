@@ -9,11 +9,13 @@
             System / Action / Show Uploads
         </div>
         <div class="card-body">
-            <a href="#" class="btn btn-secondary" onclick="history.back();">返回管理</a>
+            <a href="{{ route('system.action') }}" class="btn btn-secondary">返回管理</a>
             <br>
             <br>
-            <h2>{{ $action->study_year }} {{ $action->name }}</h2>
-            <h5>已上傳學校</h5>
+            <h2>{{ $action->study_year }} {{ $action->name }}
+                <a href="{{ route('system.downloadZip',$action->id) }}" class="btn btn-primary">下載全部</a>
+            </h2>
+            <h5><img src="{{ asset('img/ok.png') }}">已上傳學校名單</h5>
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -26,7 +28,7 @@
                     <th>
                         上傳時間
                     </th>
-                    <th colspan="3">
+                    <th colspan="2">
                         動作
                     </th>
                 </tr>
@@ -51,29 +53,54 @@
                     </td>
                     <td>
                         @if($upload->action->kind == "newstud")
-                            檢視
+                            {{ Form::open(['route'=>'system.show_one_upload', 'method' => 'POST','id'=>'show'.$upload->id,'target'=>'_blank']) }}
+                            <a href="#" class="btn btn-info" onclick="document.getElementById('show{{ $upload->id }}').submit();">檢視</a>
+                            <input type="hidden" name="upload_id" value="{{ $upload->id }}">
+                            {{ Form::close() }}
+                        @else
+                            <a href="{{ route('system.download',$upload->id) }}" class="btn btn-primary">下載</a>
                         @endif
                     </td>
                     <td>
-                        刪除
-                    </td>
-                    <td>
-                        下載
+                        {{ Form::open(['route'=>['system.delete_upload',$upload->id], 'method' => 'DELETE','id'=>'delete'.$upload->id,'onsubmit'=>'return false;']) }}
+                        <a href="#" class="btn btn-danger" onclick="bbconfirm('delete{{ $upload->id }}','你真的要刪除？')">刪除</a>
+                        {{ Form::close() }}
                     </td>
                 </tr>
                 <?php $i++;array_push($has_upload,$upload->user_id); ?>
                 @endforeach
                 </tbody>
             </table>
-            <h5>末上傳學校</h5>
-            @foreach($schools as $k=>$v)
-                @if(!in_array($k,$has_upload))
-                    {{ $v }},
-                @endif
-            @endforeach
             <br>
             <br>
-            <a href="#" class="btn btn-secondary" onclick="history.back();">返回管理</a>
+            <h5><img src="{{ asset('img/cross.png') }}">未上傳學校名單</h5>
+            <?php
+                $no_schools = "";
+            foreach($schools as $k=>$v){
+                if(!in_array($k,$has_upload)){
+                    $no_schools .= $v.",";
+                }
+            }
+            if(empty($no_schools)) $no_schools = "無";
+            ?>
+            <button class="btn btn-info" data-clipboard-action="copy" data-clipboard-target="#foo">複製未完成學校</button>
+            <script src="{{ asset('js/clipboard.min.js') }}"></script>
+            <script>
+                var clipboard = new ClipboardJS('.btn');
+
+                clipboard.on('success', function(e) {
+                    console.log(e);
+                    bbalert('複製成功！');
+                });
+
+                clipboard.on('error', function(e) {
+                    console.log(e);
+                });
+            </script>
+            <div id="foo">{{ $no_schools }}</div>
+            <br>
+            <br>
+            <a href="{{ route('system.action') }}" class="btn btn-secondary">返回管理</a>
         </div>
     </div>
 @endsection

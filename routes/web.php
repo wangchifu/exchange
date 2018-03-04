@@ -43,7 +43,11 @@ Route::group(['middleware' => 'group1'],function() {
     Route::post('system/action', 'AdminController@action_store')->name('system.action_store');
     Route::delete('system/action/{action}', 'AdminController@action_destroy')->name('system.action_destroy');
     Route::patch('system/action/{action}',  'AdminController@action_update')->name('system.action_update');
-    Route::post('system/show_upload',  'AdminController@show_upload')->name('system.show_upload');
+    Route::get('system/show_upload/{action_id}',  'AdminController@show_upload')->name('system.show_upload');
+    Route::get('system/download/{upload}',  'AdminController@download')->name('system.download');
+    Route::get('system/downloadZip/{action}',  'AdminController@downloadZip')->name('system.downloadZip');
+    Route::delete('system/delete_upload/{upload}',  'AdminController@delete_upload')->name('system.delete_upload');
+    Route::post('system/show_one_upload', 'AdminController@show_one_upload')->name('system.show_one_upload');
 });
 
 

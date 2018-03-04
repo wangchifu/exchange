@@ -84,7 +84,7 @@
                 @endforeach
                 </tbody>
             </table>
-            <a href="#" class="btn btn-success" onclick="bbconfirm('store','確定姓名，原因都好了？')">步驟 (3)：確定寫入資料</a>
+            <a href="#" class="btn btn-success" id="b_submit" onclick="bbconfirm3('store','確定姓名，原因都好了？')">步驟 (3)：確定寫入資料</a>
             <input type="hidden" name="action_id" value="{{ $action->id }}">
             {{ Form::close() }}
             <a href="#" class="btn btn-secondary" onclick="history.back();">返回放棄</a>

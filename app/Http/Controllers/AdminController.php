@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Action;
 use App\Group;
+use App\NewStuData;
 use App\Upload;
 use App\User;
 use App\UserBase;
+use Chumper\Zipper\Zipper;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -92,9 +94,15 @@ class AdminController extends Controller
         return redirect()->route('system.action');
     }
 
-    public function show_upload(Request $request)
+    public function show_upload($action_id)
     {
-        $action = Action::where('id','=',$request->input('action_id'))->first();
+        $action = Action::where('id','=',$action_id)->first();
+
+        if(auth()->user()->admin != "1" and auth()->user()->id != $action->user_id) {
+            $words = "你想做什麼？";
+            return view('layouts.error',compact('words'));
+        }
+
         $group_array = explode(',',$action->groups);
         $groups = [];
         foreach($group_array as $k=>$v){
@@ -121,13 +129,107 @@ class AdminController extends Controller
         return view('systems.show_upload',$data);
     }
 
-    public function downloadZip()
+    public function download(Upload $upload)
     {
-        $files = glob(public_path('js/*'));
-        Zipper::make('mydir/mytest3.zip')->add($files);
+        if(auth()->user()->admin == "1" or auth()->user()->id == $upload->action->user_id) {
+            $file_path = $upload->action_id . "/" . $upload->file_name;
+            $realFile = "../storage/app/public/uploads/" . $file_path;
+            return response()->download($realFile);
+
+        }else{
+            $words = "你想做什麼？";
+            return view('layouts.error',compact('words'));
+        }
+    }
+
+    public function downloadZip(Action $action)
+    {
+        if(auth()->user()->admin != "1" and auth()->user()->id != $action->user_id) {
+            $words = "你想做什麼？";
+            return view('layouts.error',compact('words'));
+        }
+
+        $folder = storage_path('app/public/uploads/'.$action->id);
+        //dd($folder);
+        $zipper = new Zipper();
+        $zipper->make($folder.'.zip')->add($folder)->close();;
 
 
-        return response()->download(public_path('mydir/mytest3.zip'));
+        return response()->download('../storage/app/public/uploads/'.$action->id.'.zip');
+    }
+
+
+    public function show_one_upload(Request $request)
+    {
+        $upload_id = $request->input('upload_id');
+
+        $upload = Upload::where('id','=',$upload_id)->first();
+
+        if(auth()->user()->admin != "1" and auth()->user()->id != $upload->action->user_id) {
+            $words = "你想做什麼？";
+            return view('layouts.error',compact('words'));
+        }
+
+        $new_stu_data = NewStuData::where('user_id','=',$upload->user_id)
+            ->where('action_id','=',$upload->action_id)
+            ->orderby('stu_sn')
+            ->get();
+        $num = $new_stu_data->count();
+        $boy_num = 0;
+        $girl_num = 0;
+        $out_num = 0;
+        $out = [];
+        foreach($new_stu_data as $new_stu){
+            if($new_stu->stu_sex == "男") $boy_num++;
+            if($new_stu->stu_sex == "女") $girl_num++;
+
+            //國小生日區間
+            if($new_stu->group_id == "3"){
+                $birthday1 = ($new_stu->action->study_year - 7)."0902";
+                $birthday2 = ($new_stu->action->study_year - 6)."0901";
+            }
+            //國中生日區間
+            if($new_stu->group_id == "4"){
+                $birthday1 = ($new_stu->action->study_year - 13)."0902";
+                $birthday2 = ($new_stu->action->study_year - 12)."0901";
+            }
+            $stud_birthday = str_replace('.','',$new_stu->stu_birthday);
+
+            if($new_stu->group_id == "3" or $new_stu->group_id == "4"){
+                if($stud_birthday<$birthday1 or $stud_birthday>$birthday2){
+                    $out[$new_stu->stu_sn] = 1;
+                    $out_num++;
+                }
+            }else{
+                $out_num = "不知";
+            }
+        }
+
+        $data = [
+            'new_stu_data'=>$new_stu_data,
+            'action_name'=>$upload->action->name,
+            'study_year'=>$upload->action->study_year,
+            'num'=>$num,
+            'boy_num'=>$boy_num,
+            'girl_num'=>$girl_num,
+            'out_num'=>$out_num,
+            'out'=>$out,
+        ];
+        return view('new_students.show',$data);
+    }
+
+    public function delete_upload(Upload $upload)
+    {
+        if(auth()->user()->admin == "1" or auth()->user()->id == $upload->action->user_id) {
+            $file_path = $upload->action_id . "/" . $upload->file_name;
+            $realFile = "../storage/app/public/uploads/" . $file_path;
+            unlink($realFile);
+            $upload->delete();
+            return redirect()->route('system.show_upload',$upload->action_id);
+        }else{
+            $words = "你想做什麼？";
+            return view('layouts.error',compact('words'));
+        }
     }
 
     public function user(Request $request)

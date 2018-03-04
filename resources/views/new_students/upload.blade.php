@@ -32,7 +32,7 @@
                         <input type="file" name="csv">
                     </td>
                     <td>
-                        <a href="#" class="btn btn-success" onclick="bbconfirm('upload','確定上傳嗎？會清除已上傳的喔！')">確定上傳</a>
+                        <a href="#" class="btn btn-success" onclick="bbconfirm3('upload','確定上傳嗎？會清除已上傳的喔！')">確定上傳</a>
                     </td>
                 </tr>
                 {{ Form::close() }}

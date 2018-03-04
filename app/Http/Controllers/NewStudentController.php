@@ -120,6 +120,7 @@ class NewStudentController extends Controller
         $boy_num = 0;
         $girl_num = 0;
         $out_num = 0;
+        $out = [];
         foreach($new_stu_data as $new_stu){
             if($new_stu->stu_sex == "男") $boy_num++;
             if($new_stu->stu_sex == "女") $girl_num++;
@@ -136,9 +137,11 @@ class NewStudentController extends Controller
             }
             $stud_birthday = str_replace('.','',$new_stu->stu_birthday);
 
-            if($stud_birthday<$birthday1 or $stud_birthday>$birthday2){
-                $out[$new_stu->stu_sn] = 1;
-                $out_num++;
+            if($new_stu->group_id == "3" or $new_stu->group_id == "4"){
+                if($stud_birthday<$birthday1 or $stud_birthday>$birthday2){
+                    $out[$new_stu->stu_sn] = 1;
+                    $out_num++;
+                }
             }
         }
 
