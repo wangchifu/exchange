@@ -58,6 +58,7 @@ class NewStudentController extends Controller
         $att['username'] = auth()->user()->username;
         $att['group_id'] = auth()->user()->group_id;
         $create_all = [];
+        $cellData =[['學號','姓名','性別','身分證字號','生日','入學時間','入學資格','戶籍地址','原因']];
         foreach($stu_sn as $k=>$v){
             $att['stu_sn'] = $stu_sn[$k];
             $att['stu_name'] = $stu_name[$k];
@@ -89,14 +90,29 @@ class NewStudentController extends Controller
                 'stu_ps'=>$att['stu_ps'],
             ];
             array_push($create_all, $new_one);
+
+            //寫入csv檔
+            $csv = [$att['stu_sn'],$att['stu_name'],$att['stu_sex'],$att['stu_id'],$att['stu_birthday'],$att['stu_date'],$att['stu_school'],$att['stu_address'],$att['stu_ps']];
+            array_push($cellData, $csv);
         }
+
         NewStuData::insert($create_all);
+
+
+
         $att2['action_id'] = $att['action_id'];
         $att2['user_id'] = $att['user_id'];
         $att2['username'] = $att['username'];
         $att2['file_name'] = $att['action_id']."_".auth()->user()->group_id."_".auth()->user()->username.".csv";
         $att2['upload_time'] = date("Y/m/d H:i:s");
         Upload::create($att2);
+
+        $path = storage_path('app/public/uploads/'.$att['action_id']);
+        Excel::create($att['action_id']."_".$att['group_id']."_".$att['username'],function($excel) use ($cellData){
+            $excel->sheet('score', function($sheet) use ($cellData){
+                $sheet->rows($cellData);
+            });
+        })->store('csv',$path);
 
         return redirect()->route('new_student.index');
     }
@@ -188,8 +204,9 @@ class NewStudentController extends Controller
                 $words = "檔案大小超過2MB ！？";
                 return view('layouts.error',compact('words'));
             } else {
-                $filename = $action->id."_".auth()->user()->group_id."_".auth()->user()->username.".csv";
-                $file->storeAs('public/' . $folder, $filename);
+                //最後寫入即可
+                //$filename = $action->id."_".auth()->user()->group_id."_".auth()->user()->username.".csv";
+                //$file->storeAs('public/' . $folder, $filename);
             }
         }else{
             $words = "沒有檔案 ？？";
