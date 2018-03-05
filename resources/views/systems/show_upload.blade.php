@@ -13,7 +13,9 @@
             <br>
             <br>
             <h2>{{ $action->study_year }} {{ $action->name }}
+                @if($action->uploads->count() != 0)
                 <a href="{{ route('system.downloadZip',$action->id) }}" class="btn btn-primary">下載全部</a>
+                @endif
             </h2>
             <h5><img src="{{ asset('img/ok.png') }}">已上傳學校名單</h5>
             <table class="table table-hover">
@@ -28,7 +30,7 @@
                     <th>
                         上傳時間
                     </th>
-                    <th colspan="2">
+                    <th colspan="3">
                         動作
                     </th>
                 </tr>
@@ -57,9 +59,10 @@
                             <a href="#" class="btn btn-info" onclick="document.getElementById('show{{ $upload->id }}').submit();">檢視</a>
                             <input type="hidden" name="upload_id" value="{{ $upload->id }}">
                             {{ Form::close() }}
-                        @else
-                            <a href="{{ route('system.download',$upload->id) }}" class="btn btn-primary">下載</a>
                         @endif
+                    </td>
+                    <td>
+                            <a href="{{ route('system.download',$upload->id) }}" class="btn btn-primary">下載</a>
                     </td>
                     <td>
                         {{ Form::open(['route'=>['system.delete_upload',$upload->id], 'method' => 'DELETE','id'=>'delete'.$upload->id,'onsubmit'=>'return false;']) }}

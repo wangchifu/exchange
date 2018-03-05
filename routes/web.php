@@ -57,7 +57,9 @@ Route::group(['middleware' => 'auth'],function() {
     Route::get('change_pass', 'HomeController@change_pass')->name('change_pass');
     Route::get('about', 'HomeController@about')->name('about');
     Route::get('contact', 'HomeController@contact')->name('contact');
-    Route::get('upload_public', 'HomeController@upload_public')->name('upload_public');
+    Route::get('upload_publickey', 'HomeController@upload_publickey')->name('upload_publickey');
+    Route::post('store_publickey', 'HomeController@store_publickey')->name('store_publickey');
+    Route::post('delete_publickey/{user}', 'HomeController@delete_publickey')->name('delete_publickey');
 
     Route::patch('update_pass/{user}', 'HomeController@update_pass')->name('update_pass');
 
@@ -72,6 +74,10 @@ Route::group(['middleware' => 'auth'],function() {
     Route::get('other_action/upload/{action}',  'OtherActionController@upload')->name('other_action.upload');
     Route::post('other_action/store',  'OtherActionController@store')->name('other_action.store');
     Route::get('other_action/download/{upload}',  'OtherActionController@download')->name('other_action.download');
+
+    Route::get('inbox', 'ChangeController@inbox')->name('inbox');
+    Route::post('inbox', 'ChangeController@store')->name('inbox_store');
+    Route::get('outbox', 'ChangeController@outbox')->name('outbox');
 
 
 

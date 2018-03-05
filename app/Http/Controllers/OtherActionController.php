@@ -95,7 +95,9 @@ class OtherActionController extends Controller
 
         if(!empty($upload)){
             $realFile = "../storage/app/public/uploads/".$upload->action_id."/".$upload->file_name;
-            unlink($realFile);
+            if(file_exists($realFile)) {
+                unlink($realFile);
+            }
             $upload->update($att);
         }else{
             Upload::create($att);

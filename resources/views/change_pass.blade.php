@@ -6,7 +6,7 @@
     <h1>更改密碼</h1>
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
-            ChangePassword
+            Change Password
         </div>
         <div class="card-body">
             {{ Form::open(['route' => ['update_pass',auth()->user()->id], 'method' => 'PATCH','name'=>'form1','id'=>'update','onsubmit'=>'return false;']) }}

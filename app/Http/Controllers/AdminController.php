@@ -223,8 +223,19 @@ class AdminController extends Controller
         if(auth()->user()->admin == "1" or auth()->user()->id == $upload->action->user_id) {
             $file_path = $upload->action_id . "/" . $upload->file_name;
             $realFile = "../storage/app/public/uploads/" . $file_path;
-            unlink($realFile);
+            if(file_exists($realFile)){
+                unlink($realFile);
+            }
+
+            if($upload->action->kind == "newstud") {
+                NewStuData::where('user_id', '=', $upload->user_id)
+                    ->where('action_id', '=', $upload->action_id)
+                    ->delete();
+            }
+
             $upload->delete();
+
+
             return redirect()->route('system.show_upload',$upload->action_id);
         }else{
             $words = "你想做什麼？";

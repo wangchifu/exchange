@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->unsignedInteger('admin')->nullable();//1管理者,null or 0 非管理者
             $table->unsignedInteger('group_id')->nullable();
+            $table->string('public_key')->nullable();
+            $table->string('upload_time')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
