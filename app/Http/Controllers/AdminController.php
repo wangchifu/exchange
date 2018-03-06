@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Action;
 use App\Group;
 use App\NewStuData;
+use App\Post;
 use App\Upload;
 use App\User;
 use App\UserBase;
@@ -335,9 +336,9 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function post_create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -346,9 +347,20 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function post_store(Request $request)
     {
-        //
+        if(empty($request->input('title'))) {
+            $words = "沒有標題 ？？";
+            return view('layouts.error', compact('words'));
+        }
+
+        if(empty($request->input('content'))) {
+            $words = "沒有內文 ？？";
+            return view('layouts.error', compact('words'));
+        }
+        Post::create($request->all());
+        return redirect()->route('home');
+
     }
 
     /**
@@ -357,9 +369,9 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function post_show(Post $post)
     {
-        //
+        return view('posts.show',compact('post'));
     }
 
     /**
@@ -391,8 +403,13 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function post_destroy(Post $post)
     {
-        //
+        if($post->user_id != auth()->user()->id) {
+            $words = "你想做什麼 ？？";
+            return view('layouts.error', compact('words'));
+        }
+        $post->delete();
+        return redirect()->route('home');
     }
 }

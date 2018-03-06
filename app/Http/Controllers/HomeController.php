@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Action;
+use App\Change;
+use App\Post;
+use App\Upload;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -33,7 +37,11 @@ class HomeController extends Controller
 
     public function home()
     {
-        return view('home');
+        $posts = Post::orderBy('id','DESC')->paginate(10);;
+        $data = [
+            'posts'=>$posts,
+        ];
+        return view('home',$data);
     }
 
     public function change_pass()

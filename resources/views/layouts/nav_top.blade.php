@@ -6,6 +6,19 @@ $active = [
 ];
 $page_at = explode('/',$_SERVER['REQUEST_URI']);
 $active[$page_at[1]] = "active";
+
+$change_num = \App\Change::where('for','=',auth()->user()->id)
+    ->where('download','=','0')
+    ->count();
+$actions = \App\Action::where('groups','like',"%,".auth()->user()->group_id.",%")
+    ->get();
+$action_num = 0;
+foreach($actions as $action){
+    $upload_num = \App\Upload::where('action_id','=',$action->id)
+        ->where('user_id','=',auth()->user()->id)
+        ->count();
+    if($upload_num == "0") $action_num++;
+}
 ?>
 @if(auth()->check())
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,6 +33,12 @@ $active[$page_at[1]] = "active";
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#" onclick="hi();"><img src="{{ asset('img/user.png') }}" width="25"> [ {{ auth()->user()->name }} ]</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><span class="badge badge-pill badge-danger">未傳 {{ $action_num }}</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><span class="badge badge-pill badge-primary">未載 {{ $change_num }}</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{ $active['upload_public'] }}" href="{{ route('upload_publickey') }}">[ 上傳公鑰 ]</a>

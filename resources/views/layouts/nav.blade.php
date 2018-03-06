@@ -13,7 +13,7 @@ $page_at = explode('/',$path[0]);
 $active[$page_at[1]] = "active";
 ?>
 <div class="list-group">
-    <a href="{{ route('home') }}" class="list-group-item {{ $active['home'] }}">最新消息</a>
+    <a href="{{ route('home') }}" class="list-group-item {{ $active['home'] }}">最新公告</a>
     <a href="{{ route('new_student.index') }}" class="list-group-item {{ $active['new_student'] }}">上傳縣府新生名單</a>
     <a href="{{ route('other_action.index') }}" class="list-group-item {{ $active['other_action'] }}">上傳縣府其他任務</a>
     <a href="{{ route('outbox') }}" class="list-group-item {{ $active['outbox'] }}">學校交換寄件匣</a>

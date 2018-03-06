@@ -17,7 +17,7 @@ class ChangeController extends Controller
     {
         $changes = Change::where('for','=',auth()->user()->id)
             ->orderBy('id','DESC')
-            ->paginate(2);
+            ->paginate(10);
         $data = [
             'changes'=>$changes,
         ];

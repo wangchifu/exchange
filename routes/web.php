@@ -48,6 +48,12 @@ Route::group(['middleware' => 'group1'],function() {
     Route::get('system/downloadZip/{action}',  'AdminController@downloadZip')->name('system.downloadZip');
     Route::delete('system/delete_upload/{upload}',  'AdminController@delete_upload')->name('system.delete_upload');
     Route::post('system/show_one_upload', 'AdminController@show_one_upload')->name('system.show_one_upload');
+
+    //Route::get('posts/' , 'AdminController@index')->name('posts.index');
+    Route::get('posts/create' , 'AdminController@post_create')->name('post.create');
+    Route::post('posts' , 'AdminController@post_store')->name('post.store');
+    Route::get('posts/{post}', 'AdminController@post_destroy')->name('post.destroy');
+
 });
 
 
@@ -80,6 +86,6 @@ Route::group(['middleware' => 'auth'],function() {
     Route::post('outbox', 'ChangeController@outbox_store')->name('outbox_store');
     Route::get('outbox', 'ChangeController@outbox')->name('outbox');
 
-
+    Route::get('posts/show/{post}' , 'AdminController@post_show')->name('post.show');
 
 });
