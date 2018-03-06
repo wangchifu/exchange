@@ -8,7 +8,8 @@ $active = [
     'system'=>'',
     'about'=>'',
 ];
-$page_at = explode('/',$_SERVER['REQUEST_URI']);
+$path = explode('?',$_SERVER['REQUEST_URI']);
+$page_at = explode('/',$path[0]);
 $active[$page_at[1]] = "active";
 ?>
 <div class="list-group">

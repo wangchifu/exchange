@@ -37,7 +37,7 @@
                     確認收件者
                 </th>
                 <th colspan="2">
-                    附檔：
+                    附檔：( < 2MB )
                 </th>
                 </thead>
                 <tbody>
@@ -82,10 +82,10 @@
                 <tbody>
                 @foreach($changes as $change)
                     <tr>
-                        <td>
+                        <td nowrap>
                             {{ $change->created_at }}
                         </td>
-                        <td>
+                        <td nowrap>
                             <?php
                             $user = \App\User::where('id','=',$change->for)->first();
                             ?>
@@ -94,12 +94,12 @@
                         <td>
                             {{ $change->title }}
                         </td>
-                        <td>
+                        <td nowrap>
                             <?php
                             if($change->download == 1){
                                 $d = $change->updated_at."已下載";
                             }else{
-                                $d = "未下載";
+                                $d = "未曾下載";
                             }
                             ?>
                             {{ $d }}

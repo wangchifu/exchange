@@ -13,22 +13,52 @@
                 <thead>
                 <tr>
                     <th width="200">時間</th>
-                    <th>寄件人(帳號)</th>
+                    <th>寄件人</th>
                     <th>標題</th>
-                    <th width="50">狀態</th>
-                    <th>動作</th>
+                    <th>狀態</th>
+                    <th width="50">動作</th>
                 </tr>
                 </thead>
                 <tbody>
-
+                <?php
+                $page = explode('=',$_SERVER['REQUEST_URI']);
+                if(empty($path[1])) $page[1]=1;
+                ?>
+                @foreach($changes as $change)
+                <tr>
+                    <td nowrap>
+                        {{ $change->created_at }}
+                    </td>
+                    <td nowrap>
+                        <?php
+                        $user = \App\User::where('id','=',$change->from)->first();
+                        ?>
+                        {{ $user->name }}
+                    </td>
+                    <td>
+                        {{ $change->title }}
+                    </td>
+                    <td nowrap>
+                        <?php
+                        if($change->download == 1){
+                            $d = $change->updated_at."已下載";
+                        }else{
+                            $d = "未曾下載";
+                        }
+                        ?>
+                        {{ $d }}
+                    </td>
+                    <td>
+                        {{ Form::open(['route'=>['inbox_download',$change->id],'method'=>'post','id'=>'download'.$change->id,'onsubmit'=>'return false;']) }}
+                        <a href="#" class="btn btn-primary" onclick="bbconfirm('download{{ $change->id }}','下載檔案？個資請妥善保存，勿留個人電腦「下載」資料夾！')">下載</a>
+                        <input type="hidden" name="page" value="{{ $page[1] }}">
+                        {{ Form::close() }}
+                    </td>
+                </tr>
+                @endforeach
                 </tbody>
             </table>
-            <script>
-                function openwindow(url_str){
-                    window.open (url_str,"閱讀信件","menubar=0,status=0,directories=0,location=0,top=20,left=20,toolbar=0,scrollbars=1,resizable=1,Width=800,Height=600");
-                }
-
-            </script>
+            {{ $changes->links('vendor.pagination.bootstrap-4') }}
         </div>
     </div>
 @endsection

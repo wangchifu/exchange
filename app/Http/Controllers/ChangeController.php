@@ -15,8 +15,30 @@ class ChangeController extends Controller
      */
     public function inbox()
     {
+        $changes = Change::where('for','=',auth()->user()->id)
+            ->orderBy('id','DESC')
+            ->paginate(2);
+        $data = [
+            'changes'=>$changes,
+        ];
 
-        return view('changes.inbox');
+        return view('changes.inbox',$data);
+    }
+
+    public function inbox_download(Change $change)
+    {
+        if(auth()->user()->id == $change->for) {
+            $att['download'] = 1;
+            $change->update($att);
+
+            $realFile = "../storage/app/public/changes/" . $change->file;
+
+            return response()->download($realFile);
+            header("location: index.php");
+        }else{
+            $words = "你想做什麼？";
+            return view('layouts.error',compact('words'));
+        }
     }
 
     public function outbox()
@@ -41,6 +63,15 @@ class ChangeController extends Controller
 
     public function outbox_store(Request $request)
     {
+        if(empty($request->input('for'))) {
+            $words = "沒有收件者 ？？";
+            return view('layouts.error', compact('words'));
+        }
+
+        if(empty($request->input('title'))) {
+            $words = "沒有說明 ？？";
+            return view('layouts.error', compact('words'));
+        }
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
