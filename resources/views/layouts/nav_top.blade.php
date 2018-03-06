@@ -7,17 +7,19 @@ $active = [
 $page_at = explode('/',$_SERVER['REQUEST_URI']);
 $active[$page_at[1]] = "active";
 
-$change_num = \App\Change::where('for','=',auth()->user()->id)
-    ->where('download','=','0')
-    ->count();
-$actions = \App\Action::where('groups','like',"%,".auth()->user()->group_id.",%")
-    ->get();
-$action_num = 0;
-foreach($actions as $action){
-    $upload_num = \App\Upload::where('action_id','=',$action->id)
-        ->where('user_id','=',auth()->user()->id)
+if(auth()->check()){
+    $change_num = \App\Change::where('for','=',auth()->user()->id)
+        ->where('download','=','0')
         ->count();
-    if($upload_num == "0") $action_num++;
+    $actions = \App\Action::where('groups','like',"%,".auth()->user()->group_id.",%")
+        ->get();
+    $action_num = 0;
+    foreach($actions as $action){
+        $upload_num = \App\Upload::where('action_id','=',$action->id)
+            ->where('user_id','=',auth()->user()->id)
+            ->count();
+        if($upload_num == "0") $action_num++;
+    }
 }
 ?>
 @if(auth()->check())
