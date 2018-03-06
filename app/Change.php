@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Change extends Model
 {
-    //
+    protected $fillable = [
+        'from',
+        'for',
+        'title',
+        'file',
+        'download',
+    ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Change;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -20,16 +21,56 @@ class ChangeController extends Controller
 
     public function outbox()
     {
-        $user_menu = User::where('public_key','=','')
+        $user_menu = User::where('public_key','!=','')
             ->orderBy('group_id')
             ->orderBy('username')
             ->get()
             ->pluck('name', 'id')
             ->toArray();
+
+        $changes = Change::where('from','=',auth()->user()->id)
+            ->orderBy('id','DESC')
+            ->get();
+
         $data = [
             'user_menu'=>$user_menu,
+            'changes'=>$changes,
         ];
         return view('changes.outbox',$data);
+    }
+
+    public function outbox_store(Request $request)
+    {
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $info = [
+                //'mime-type' => $file->getMimeType(),
+                'original_filename' => $file->getClientOriginalName(),
+                'extension' => $file->getClientOriginalExtension(),
+                'size' => $file->getClientSize(),
+            ];
+
+
+            if ($info['size'] > 2100000) {
+                $words = "檔案大小超過2MB ！？";
+                return view('layouts.error', compact('words'));
+            } else {
+                $att['from'] = auth()->user()->id;
+                $att['for'] = $request->input('for');
+                $att['title'] = $request->input('title');
+                $att['file'] = date("YmdHis") .".". $info['extension'];
+                $att['download'] = 0;
+                $folder = 'changes';
+
+                $file->storeAs('public/' . $folder, $att['file']);
+                Change::create($att);
+            }
+        }else{
+            $words = "沒有檔案 ？？";
+            return view('layouts.error',compact('words'));
+        }
+        return redirect()->route('outbox');
     }
 
     /**

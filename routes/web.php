@@ -76,7 +76,7 @@ Route::group(['middleware' => 'auth'],function() {
     Route::get('other_action/download/{upload}',  'OtherActionController@download')->name('other_action.download');
 
     Route::get('inbox', 'ChangeController@inbox')->name('inbox');
-    Route::post('inbox', 'ChangeController@store')->name('inbox_store');
+    Route::post('inbox', 'ChangeController@outbox_store')->name('outbox_store');
     Route::get('outbox', 'ChangeController@outbox')->name('outbox');
 
 

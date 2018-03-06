@@ -20,7 +20,6 @@ class CreateChangesTable extends Migration
             $table->string('title');
             $table->string('file');
             $table->unsignedInteger('download');//已下載？
-            $table->string('ip')->nullable();
             $table->timestamps();
         });
     }

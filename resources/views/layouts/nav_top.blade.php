@@ -19,7 +19,7 @@ $active[$page_at[1]] = "active";
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" onclick="hi();"><img src="{{ asset('img/user.svg') }}" width="25"> [ {{ auth()->user()->name }} ]</a>
+            <a class="nav-link" href="#" onclick="hi();"><img src="{{ asset('img/user.png') }}" width="25"> [ {{ auth()->user()->name }} ]</a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{ $active['upload_public'] }}" href="{{ route('upload_publickey') }}">[ 上傳公鑰 ]</a>

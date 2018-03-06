@@ -27,7 +27,7 @@ class CreateNewStuDataTable extends Migration
             $table->string('stu_date');
             $table->string('stu_school');
             $table->string('stu_address');
-            $table->string('stu_ps');
+            $table->string('stu_ps')->nullable();
             $table->timestamps();
         });
     }
