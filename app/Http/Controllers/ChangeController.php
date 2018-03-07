@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Change;
 use App\User;
 use Illuminate\Http\Request;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class ChangeController extends Controller
 {
@@ -96,6 +98,23 @@ class ChangeController extends Controller
 
                 $file->storeAs('public/' . $folder, $att['file']);
                 Change::create($att);
+
+                //$gpg = new gnupg();
+                //$info = $gpg -> import($keydata);
+                //print_r($info);
+
+                $gpg = '/usr/bin/gpg';
+
+                $user= User::where('id','=',$request->input('for'))->first();
+                $recipient = "wang074628";
+
+                $secret_file = storage_path('app/public/changes/'.$att['file']);
+
+                //$process = new Process("$gpg --yes -e -r $recipient $secret_file");
+                //$process->run();
+
+
+
             }
         }else{
             $words = "沒有檔案 ？？";

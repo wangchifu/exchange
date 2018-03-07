@@ -8,6 +8,8 @@ use App\Post;
 use App\Upload;
 use App\User;
 use Illuminate\Http\Request;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class HomeController extends Controller
 {
@@ -37,7 +39,7 @@ class HomeController extends Controller
 
     public function home()
     {
-        $posts = Post::orderBy('id','DESC')->paginate(10);;
+        $posts = Post::orderBy('id','DESC')->paginate(10);
         $data = [
             'posts'=>$posts,
         ];
@@ -72,7 +74,7 @@ class HomeController extends Controller
     {
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $folder = 'uploads/public_key';
+            $folder = 'public_keys';
 
             $info = [
                 //'mime-type' => $file->getMimeType(),
@@ -82,7 +84,7 @@ class HomeController extends Controller
             ];
 
             //公鑰附檔名
-            $file_type = "png";
+            $file_type = "asc";
 
             if ($info['size'] > 2100000) {
                 $words = "檔案大小超過2MB ！？";
@@ -98,6 +100,14 @@ class HomeController extends Controller
                 $att['upload_time'] = date("Y/m/d H:i:s");
                 $user = User::where('id','=',auth()->user()->id)->first();
                 $user->update($att);
+
+                //匯入公鑰
+                $gpg = '/usr/bin/gpg';
+                $path = storage_path('app/public/public_keys/'.$filename);
+
+                $process = new Process($gpg.' --import '.$path);
+                $process->run();
+
             }
         }else{
             $words = "沒有檔案 ？？";
