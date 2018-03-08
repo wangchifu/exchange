@@ -6,7 +6,7 @@
     <h1>學校交換收件匣</h1>
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
-            Change InBox
+            Change InBox ( 1年後自動移除檔案)
         </div>
         <div class="card-body">
             <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">

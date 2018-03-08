@@ -6,7 +6,7 @@
     <h1>學校交換寄件匣</h1>
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
-            慎選學校
+            寄件資料
         </div>
         <div class="card-body">
             <table class="table table-light">
@@ -59,7 +59,7 @@
     </div>
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
-            寄件記錄( 半年內自動移除檔案 )
+            寄件記錄
         </div>
         <div class="card-body">
             <table class="table table-light">
