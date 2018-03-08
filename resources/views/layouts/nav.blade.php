@@ -48,9 +48,9 @@ if(auth()->check()){
         <span class="badge badge-pill badge-warning">{{ $action2_num }}</span>
         @endif
     </a>
-    <a href="{{ route('outbox') }}" class="list-group-item {{ $active['outbox'] }}">學校交換寄件匣</a>
+    <a href="{{ route('outbox') }}" class="list-group-item {{ $active['outbox'] }}">學校交換[寄件匣]</a>
     <a href="{{ route('inbox') }}" class="list-group-item {{ $active['inbox'] }}">
-        學校交換收件匣
+        學校交換[收件匣]
         @if($change_num > 0)
         <span class="badge badge-pill badge-info">{{ $change_num }}</span>
         @endif
