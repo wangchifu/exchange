@@ -59,7 +59,7 @@
     </div>
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
-            寄件記錄
+            寄件記錄 ( 檔案僅保留二個月 )
         </div>
         <div class="card-body">
             <table class="table table-light">

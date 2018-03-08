@@ -93,6 +93,7 @@ class ChangeController extends Controller
                 $att['for'] = $request->input('for');
                 $att['title'] = $request->input('title');
                 $att['file'] = date("YmdHis") .".". $info['extension'];
+                $att['upload_time'] =date("Ymd");
                 $att['download'] = 0;
                 $folder = 'changes';
 

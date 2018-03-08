@@ -6,7 +6,7 @@
     <h1>學校交換收件匣</h1>
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
-            Change InBox ( 1年後自動移除檔案)
+            Change InBox  ( 檔案僅保留二個月 )
         </div>
         <div class="card-body">
             <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -40,19 +40,23 @@
                     </td>
                     <td nowrap>
                         <?php
-                        if($change->download == 1){
+                        if($change->download == 1 or $change->download == 3){
                             $d = $change->updated_at."已下載";
-                        }else{
+                        }elseif($change->download == 0 or $change->download == 2){
                             $d = "未曾下載";
                         }
                         ?>
                         {{ $d }}
                     </td>
                     <td>
+                        @if($change->download < 2)
                         {{ Form::open(['route'=>['inbox_download',$change->id],'method'=>'post','id'=>'download'.$change->id,'onsubmit'=>'return false;']) }}
                         <a href="#" class="btn btn-primary" onclick="bbconfirm('download{{ $change->id }}','下載檔案？個資請妥善保存，勿留個人電腦「下載」資料夾！')">下載</a>
                         <input type="hidden" name="page" value="{{ $page[1] }}">
                         {{ Form::close() }}
+                        @else
+                            <a href="#" class="btn btn-warning">已失效</a>
+                        @endif
                     </td>
                 </tr>
                 @endforeach

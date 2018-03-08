@@ -19,6 +19,7 @@ class CreateChangesTable extends Migration
             $table->string('for');
             $table->string('title');
             $table->string('file');
+            $table->string('upload_time');
             $table->unsignedInteger('download');//已下載？
             $table->timestamps();
         });

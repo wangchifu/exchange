@@ -11,6 +11,7 @@ class Change extends Model
         'for',
         'title',
         'file',
+        'upload_time',
         'download',
     ];
 }
