@@ -33,7 +33,7 @@ class ChangeController extends Controller
             $att['download'] = 1;
             $change->update($att);
 
-            $realFile = "../storage/app/public/changes/" . $change->file;
+            $realFile = storage_path("app/public/changes/" . $change->file);
 
             return response()->download($realFile);
             header("location: index.php");

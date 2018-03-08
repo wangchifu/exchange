@@ -137,7 +137,7 @@ class HomeController extends Controller
         }
 
         $file_name = $user->public_key;
-        $realFile = "../storage/app/public/uploads/public_key/".$file_name;
+        $realFile = storage_path("app/public/uploads/public_key/".$file_name);
         if(file_exists($realFile)) {
             unlink($realFile);
         }

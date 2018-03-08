@@ -94,7 +94,7 @@ class OtherActionController extends Controller
             ->first();
 
         if(!empty($upload)){
-            $realFile = "../storage/app/public/uploads/".$upload->action_id."/".$upload->file_name;
+            $realFile = storage_path("app/public/uploads/".$upload->action_id."/".$upload->file_name);
             if(file_exists($realFile)) {
                 unlink($realFile);
             }
@@ -120,7 +120,7 @@ class OtherActionController extends Controller
     {
         if($upload->user_id == auth()->user()->id) {
             $file_path = $upload->action_id . "/" . $upload->file_name;
-            $realFile = "../storage/app/public/uploads/" . $file_path;
+            $realFile = storage_path("app/public/uploads/" . $file_path);
             //header("Content-type:application");
             //header("Content-Length: " . (string)(filesize($realFile)));
             //header("Content-Disposition: attachment; filename=" . $upload->file_name);

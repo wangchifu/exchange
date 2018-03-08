@@ -134,7 +134,7 @@ class AdminController extends Controller
     {
         if(auth()->user()->admin == "1" or auth()->user()->id == $upload->action->user_id) {
             $file_path = $upload->action_id . "/" . $upload->file_name;
-            $realFile = "../storage/app/public/uploads/" . $file_path;
+            $realFile = storage_path("app/public/uploads/" . $file_path);
             return response()->download($realFile);
 
         }else{
@@ -156,7 +156,7 @@ class AdminController extends Controller
         $zipper->make($folder.'.zip')->add($folder)->close();;
 
 
-        return response()->download('../storage/app/public/uploads/'.$action->id.'.zip');
+        return response()->download(storage_path('app/public/uploads/'.$action->id.'.zip'));
     }
 
 
@@ -223,7 +223,7 @@ class AdminController extends Controller
     {
         if(auth()->user()->admin == "1" or auth()->user()->id == $upload->action->user_id) {
             $file_path = $upload->action_id . "/" . $upload->file_name;
-            $realFile = "../storage/app/public/uploads/" . $file_path;
+            $realFile = storage_path("app/public/uploads/" . $file_path);
             if(file_exists($realFile)){
                 unlink($realFile);
             }
