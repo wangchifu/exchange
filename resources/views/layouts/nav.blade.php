@@ -37,13 +37,13 @@ if(auth()->check()){
 <div class="list-group">
     <a href="{{ route('home') }}" class="list-group-item {{ $active['home'] }}">最新公告</a>
     <a href="{{ route('new_student.index') }}" class="list-group-item {{ $active['new_student'] }}">
-        上傳縣府新生名單
+        上傳縣府 [新生名單]
         @if($action1_num > 0)
         <span class="badge badge-pill badge-danger">{{ $action1_num }}</span>
         @endif
     </a>
     <a href="{{ route('other_action.index') }}" class="list-group-item {{ $active['other_action'] }}">
-        上傳縣府其他任務
+        上傳縣府 [其他任務]
         @if($action2_num > 0)
         <span class="badge badge-pill badge-warning">{{ $action2_num }}</span>
         @endif
