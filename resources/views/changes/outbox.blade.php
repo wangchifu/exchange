@@ -37,7 +37,7 @@
                     確認收件者
                 </th>
                 <th colspan="2">
-                    附檔<i class="text-danger">★</i>：( < 2MB )
+                    附檔<i class="text-danger">★</i>：( < 5MB )
                 </th>
                 </thead>
                 <tbody>
@@ -59,7 +59,7 @@
     </div>
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
-            寄件記錄 ( 檔案僅保留二個月 )
+            寄件記錄 ( 檔案僅保留三個月 )
         </div>
         <div class="card-body">
             <table class="table table-light">

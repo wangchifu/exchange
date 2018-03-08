@@ -85,8 +85,8 @@ class ChangeController extends Controller
             ];
 
 
-            if ($info['size'] > 2100000) {
-                $words = "檔案大小超過2MB ！？";
+            if ($info['size'] > 6100000) {
+                $words = "檔案大小超過5MB ！？";
                 return view('layouts.error', compact('words'));
             } else {
                 $att['from'] = auth()->user()->id;

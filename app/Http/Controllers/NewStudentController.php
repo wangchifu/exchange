@@ -199,9 +199,9 @@ class NewStudentController extends Controller
                 //'extension' => $file->getClientOriginalExtension(),
                 'size' => $file->getClientSize(),
             ];
-            if ($info['size'] > 2100000)
+            if ($info['size'] > 6100000)
             {
-                $words = "檔案大小超過2MB ！？";
+                $words = "檔案大小超過5MB ！？";
                 return view('layouts.error',compact('words'));
             } else {
                 //最後寫入即可

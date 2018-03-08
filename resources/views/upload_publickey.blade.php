@@ -31,7 +31,7 @@
                         <input type="file" name="file" class="form-control" required="required">
                     </td>
                     <td>
-                        {{ Form::text('key_id', null, ['id' => 'key_id', 'class' => 'form-control', 'placeholder' => 'key_id','required'=>'required']) }}
+                        {{ Form::text('key_id', null, ['id' => 'key_id', 'class' => 'form-control', 'placeholder' => '8碼','maxlength'=>'8','required'=>'required']) }}
                     </td>
                     <td colspan="2">
                         <a href="#" class="btn btn-success" onclick="bbconfirm('upload','若曾上傳過，將覆蓋舊的公鑰喔！！')">上傳</a>

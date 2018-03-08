@@ -67,8 +67,8 @@ class OtherActionController extends Controller
                 $file_type = $info['extension'];
             }
 
-            if ($info['size'] > 2100000) {
-                $words = "檔案大小超過2MB ！？";
+            if ($info['size'] > 6100000) {
+                $words = "檔案大小超過5MB ！？";
                 return view('layouts.error', compact('words'));
             }elseif($info['extension'] != $file_type){
                 $words = "檔案格式不是指定的 ".$request->input('file_type');

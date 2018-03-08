@@ -59,7 +59,7 @@
                 {{ Form::open(['route'=>'system.action_store', 'method' => 'POST','id'=>'action_store','onsubmit'=>'return false;']) }}
                 <tr>
                     <td>
-                        {{ Form::text('study_year', null, ['id' => 'study_year', 'class' => 'form-control', 'placeholder' => '學年','required'=>'required']) }}
+                        {{ Form::text('study_year', null, ['id' => 'study_year', 'class' => 'form-control', 'placeholder' => '學年','maxlength'=>'3','required'=>'required']) }}
                     </td>
                     <td>
                         {{ Form::select('kind', $kinds, null, ['id' => 'kind', 'class' => 'form-control','required'=>'required','onchange'=>'change_file_type();']) }}
