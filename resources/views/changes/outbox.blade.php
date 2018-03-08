@@ -12,10 +12,10 @@
             <table class="table table-light">
                 <thead>
                 <th width="300">
-                    收件者：
+                    收件者<i class="text-danger">★</i>：
                 </th>
                 <th colspan="2">
-                    說明：
+                    說明<i class="text-danger">★</i>：
                 </th>
                 </thead>
                 <tbody>
@@ -37,7 +37,7 @@
                     確認收件者
                 </th>
                 <th colspan="2">
-                    附檔：( < 2MB )
+                    附檔<i class="text-danger">★</i>：( < 2MB )
                 </th>
                 </thead>
                 <tbody>

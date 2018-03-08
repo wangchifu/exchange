@@ -97,7 +97,7 @@ class ChangeController extends Controller
                 $folder = 'changes';
 
                 $file->storeAs('public/' . $folder, $att['file']);
-                Change::create($att);
+                $change = Change::create($att);
 
                 //$gpg = new gnupg();
                 //$info = $gpg -> import($keydata);
@@ -106,15 +106,16 @@ class ChangeController extends Controller
                 $gpg = '/usr/bin/gpg';
 
                 $user= User::where('id','=',$request->input('for'))->first();
-                $recipient = "wang074628";
+                $recipient = $user->key_id;
 
                 $secret_file = storage_path('app/public/changes/'.$att['file']);
 
-                //$process = new Process("$gpg --yes -e -r $recipient $secret_file");
-                //$process->run();
+                $process = new Process("$gpg --encrypt --recipient $recipient --trust-model always $secret_file");
+                $process->run();
+                unlink($secret_file);
 
-
-
+                $att2['file'] = $att['file'].".gpg";
+                $change->update($att2);
             }
         }else{
             $words = "沒有檔案 ？？";
