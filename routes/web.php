@@ -62,7 +62,6 @@ Route::group(['middleware' => 'auth'],function() {
     Route::get('home', 'HomeController@home')->name('home');
     Route::get('change_pass', 'HomeController@change_pass')->name('change_pass');
     Route::get('about', 'HomeController@about')->name('about');
-    Route::get('contact', 'HomeController@contact')->name('contact');
     Route::get('upload_publickey', 'HomeController@upload_publickey')->name('upload_publickey');
     Route::post('store_publickey', 'HomeController@store_publickey')->name('store_publickey');
     Route::post('delete_publickey/{user}', 'HomeController@delete_publickey')->name('delete_publickey');

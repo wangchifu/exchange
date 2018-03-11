@@ -36,4 +36,5 @@
             {{ $posts->links('vendor.pagination.bootstrap-4') }}
         </div>
     </div>
+    <a href="{{ route('about') }}" class="btn btn-info">系統教學</a>
 @endsection
