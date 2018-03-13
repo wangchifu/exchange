@@ -109,7 +109,14 @@ class HomeController extends Controller
                 $e = $gpg." --with-fingerprint ".$file_path." |awk 'BEGIN{FS=\"/\"};NR==1{print $2}'|awk '{print $1}'";
                 $process = new Process($e);
                 $process->run();
-                $att['key_id'] = $process->getOutput();
+                $key_id = $process->getOutput();
+                $ary_phase = array("\r\n","\r","\n");
+                $att['key_id'] = str_replace($ary_phase,'',$key_id);
+
+                if(strlen($att['key_id']) != "8"){
+                    $words = "key id 不對！";
+                    return view('layouts.error', compact('words'));
+                }
 
                 //先刪之前的公鑰
                 if(!empty($user->key_id)){
