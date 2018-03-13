@@ -72,10 +72,6 @@ class HomeController extends Controller
 
     public function store_publickey(Request $request)
     {
-        if (empty($request->input('key_id'))) {
-            $words = "沒有填key id！？";
-            return view('layouts.error', compact('words'));
-        }
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $folder = 'public_keys';
@@ -98,14 +94,26 @@ class HomeController extends Controller
                 return view('layouts.error', compact('words'));
             } else {
                 $filename = auth()->user()->username.".".$file_type;
+                //先存入
                 $file->storeAs('public/' . $folder, $filename);
 
                 $att['public_key'] = $filename;
-                $att['key_id'] = $request->input('key_id');
+                //$att['key_id'] = $request->input('key_id');
                 $att['upload_time'] = date("Y/m/d H:i:s");
                 $user = User::where('id','=',auth()->user()->id)->first();
 
                 $gpg = '/usr/bin/gpg';
+
+                //查key id
+                $file_path = storage_path('app/public/public_keys/'.$filename);
+                $e = $gpg." --with-fingerprint ".$file_path." |awk 'BEGIN{FS=\"/\"};NR==1{print $2}'|awk '{print $1}'";
+                $process = new Process($e);
+                $process->run();
+                $att['key_id'] = $process->getOutput();
+                if(strlen($att['key_id']) != 8){
+                    $words = "key id 不對！";
+                    return view('layouts.error', compact('words'));
+                }
 
                 //先刪之前的公鑰
                 if(!empty($user->key_id)){
