@@ -7,8 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>@yield('page-title')</title>
+
+    <link rel="stylesheet" href="{{ asset('css/combo.select.css') }}">
+
 
     @include('layouts.header')
 

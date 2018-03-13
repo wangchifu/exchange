@@ -22,7 +22,12 @@
                 {{ Form::open(['route'=>'outbox_store','files'=>true,'method'=>'post','id'=>'store','onsubmit'=>'return false;']) }}
                 <tr>
                     <td>
-                        {{ Form::select('for', $user_menu, null, ['id' => 'for', 'class' => 'form-control', 'placeholder' => '請選擇收件者','required'=>'required','onchange'=>'change()']) }}
+                        <select name="for" class="form-control" id="search">
+                            <option value="">學校</option>
+                            @foreach($user_menu as $k=>$v)
+                            <option value="{{ $k }}">{{$v  }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                         {{ Form::text('title',null,['id'=>'title','class' => 'form-control', 'placeholder' => '檔案說明','required'=>'required']) }}
