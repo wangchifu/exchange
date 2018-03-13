@@ -110,10 +110,6 @@ class HomeController extends Controller
                 $process = new Process($e);
                 $process->run();
                 $att['key_id'] = $process->getOutput();
-                if(strlen($att['key_id']) != 8){
-                    $words = "key id 不對！";
-                    return view('layouts.error', compact('words'));
-                }
 
                 //先刪之前的公鑰
                 if(!empty($user->key_id)){
