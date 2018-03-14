@@ -3,7 +3,7 @@
 @section('page-title',"學校交換寄件匣 | 彰化縣學校文件交換系統")
 
 @section('content')
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('bootstrap4c-chosen/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap4c-chosen/css/component-buttons.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap4c-chosen/css/component-chosen.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap4c-chosen/css/component-custom-switch.css') }}" rel="stylesheet">
@@ -36,11 +36,10 @@
                                 <option value="{{ $k }}">{{ $v }}</option>
                                 @endforeach
                             </select>
-                        </div>
 
-                        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+                        <script src="{{ asset('bootstrap4c-chosen/js/jquery-3.1.1.min.js') }}"></script>
+                        <script src="{{ asset('bootstrap4c-chosen/js/tether.min.js') }}"></script>
+                        <script src="{{ asset('bootstrap4c-chosen/js/bootstrap.min.js') }}"></script>
                         <script src="{{ asset('bootstrap4c-chosen/js/chosen.jquery.js') }}"></script>
                         <script src="{{ asset('bootstrap4c-chosen/js/dropzone.js') }}"></script>
                         <script src="{{ asset('bootstrap4c-chosen/js/jquery.tag-editor.js') }}"></script>
