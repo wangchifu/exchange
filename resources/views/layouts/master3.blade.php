@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <title>@yield('page-title')</title>
 
-    @include('layouts.header')
+
 
 </head>
 
@@ -63,7 +63,7 @@
     <!-- /.container -->
 </footer>
 
-@include('layouts.footer')
+
 @include('layouts.bootbox')
 </body>
 
