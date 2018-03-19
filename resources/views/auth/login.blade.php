@@ -95,6 +95,9 @@
                                 </button>
                             </div>
                         </div>
+                        <span class="text-right">
+                            [<a href="{{ route('forgetPW') }}">忘記密碼</a>]
+                        </span>
                     </form>
                 </div>
             </div>

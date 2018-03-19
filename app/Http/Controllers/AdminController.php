@@ -297,6 +297,24 @@ class AdminController extends Controller
         return redirect()->route('system.user',['group_id'=>$user->group_id]);
     }
 
+    public function setAdmin(User $user)
+    {
+        if($user->group_id == "1"){
+            $att['admin'] = "1";
+            $user->update($att);
+        }
+        return redirect()->route('system.user');
+    }
+
+    public function disAdmin(User $user)
+    {
+        if($user->group_id == "1"){
+            $att['admin'] = null;
+            $user->update($att);
+        }
+        return redirect()->route('system.user');
+    }
+
     public function group()
     {
         $groups = Group::all();

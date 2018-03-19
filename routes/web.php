@@ -12,6 +12,8 @@
 */
 
 Route::get('/', 'HomeController@index')->name('index');
+Route::get('forgetPW', 'Auth\LoginController@forgetPW')->name('forgetPW');
+Route::get('download_pdf', 'Auth\LoginController@download_pdf')->name('download_pdf');
 
 //Auth::routes();
 //登入/登出
@@ -30,11 +32,14 @@ Route::group(['middleware' => 'admin'],function(){
     Route::patch('system/user/{user}', 'AdminController@user_update')->name('system.user_update');
     Route::get('system/user/{user}/default', 'AdminController@user_default')->name('system.user_default');
     Route::get('system/user/{user}/delete', 'AdminController@user_delete')->name('system.user_delete');
+    Route::get('system/user/{user}/setAdmin', 'AdminController@setAdmin')->name('system.user_setAdmin');
+    Route::get('system/user/{user}/disAdmin', 'AdminController@disAdmin')->name('system.user_disAdmin');
 
     Route::get('system/group', 'AdminController@group')->name('system.group');
     Route::post('system/group/store', 'AdminController@group_store')->name('system.group_store');
     Route::patch('system/group/{group}', 'AdminController@group_update')->name('system.group_update');
     Route::get('system/group/{group}/delete', 'AdminController@group_delete')->name('system.group_delete');
+
 });
 
 //管理者

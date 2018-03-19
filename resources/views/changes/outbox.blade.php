@@ -10,7 +10,7 @@
     <link href="{{ asset('bootstrap4c-chosen/css/component-dropzone.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap4c-chosen/css/component-forms.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap4c-chosen/css/component-tageditor.css') }}" rel="stylesheet">
-    <h1>學校交換寄件匣</h1>
+    <h1>學校交換「寄件匣」</h1>
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
             寄件資料
@@ -54,19 +54,13 @@
                 </tr>
                 </tbody>
                 <thead>
-                <th width="200">
-                    確認收件者
-                </th>
-                <th colspan="2">
-                    附檔<i class="text-danger">★</i>：( < 5MB )
+                <th colspan="3">
+                    附檔<i class="text-danger">★</i>：( 檔案小於5MB )
                 </th>
                 </thead>
                 <tbody>
                 <tr>
-                    <td nowrap>
-                        <h3 class="text-danger" id="school"></h3>
-                    </td>
-                    <td>
+                    <td colspan="2">
                         <input type="file" name="file" class="form-control" required="required">
                     </td>
                     <td>

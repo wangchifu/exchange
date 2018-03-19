@@ -60,4 +60,14 @@ class LoginController extends Controller
     {
         return captcha_img('flat');
     }
+    public function forgetPW()
+    {
+        return view('forgetPW');
+    }
+
+    public function download_pdf()
+    {
+        $realFile = public_path('sample/reset_password.pdf');
+        return response()->download($realFile);
+    }
 }

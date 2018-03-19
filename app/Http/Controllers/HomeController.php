@@ -65,6 +65,7 @@ class HomeController extends Controller
         return redirect()->route('index');
     }
 
+
     public function upload_publickey()
     {
         return view('upload_publickey');

@@ -71,7 +71,18 @@
                             {{ Form::select('group_id', $groups, null, ['id' => 'group_id', 'class' => 'form-control','required'=>'required']) }}
                         </td>
                         <td>{{ $user->name }}</td>
-                        <td>{{ $user->username }}</td>
+                        <td>
+                            {{ $user->username }}
+                            @if($user->username=="root")
+                                [超級使用者]
+                            @endif
+                            @if($user->group_id=="1" and $user->admin=="1" and $user->username != "root")
+                                <a href="{{ route('system.user_disAdmin',$user->id) }}" id="disAdmin{{ $user->id }}" class="btn btn-warning" onclick="bbconfirm2('disAdmin{{ $user->id }}','取消超級使用者')">超級</a>
+                            @endif
+                            @if($user->group_id=="1" and $user->admin != "1")
+                                <a href="{{ route('system.user_setAdmin',$user->id) }}" id="setAdmin{{ $user->id }}" class="btn btn-secondary" onclick="bbconfirm2('setAdmin{{ $user->id }}','確定改為超級使用者嗎？')">普通</a>
+                            @endif
+                        </td>
                         <td nowrap>
                             <a href="#" class="btn btn-info" onclick="bbconfirm('user_update{{ $user->id }}','儲存變更？')">儲存</a>
                             <?php $default = env('DEFAULT_USER_PWD'); ?>

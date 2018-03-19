@@ -3,7 +3,7 @@
 @section('page-title',"學校交換收件匣 | 彰化縣學校文件交換系統")
 
 @section('content')
-    <h1>學校交換收件匣</h1>
+    <h1>學校交換「收件匣」</h1>
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
             Change InBox  ( 檔案僅保留三個月 )
