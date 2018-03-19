@@ -1,6 +1,6 @@
 @extends('layouts.master2')
 
-@section('page-title',"關於 | 彰化縣學校文件交換系統")
+@section('page-title',"忘記密碼 | 彰化縣學校文件交換系統")
 
 @section('content')
     <h1>忘記密碼</h1>
@@ -15,10 +15,12 @@
             <br>
             <br>
             2.上傳核章好之申請書照片(掃瞄圖檔)
-            {{ Form::open(['route'=>'system.action_store', 'method' => 'POST','id'=>'action_store','onsubmit'=>'return false;']) }}
+            {{ Form::open(['route'=>'upload_pic', 'method' => 'POST','files'=>true,'id'=>'upload','onsubmit'=>'return false;']) }}
             <input type="file" name="file">
-            <a href="#" class="btn btn-success">上傳</a>
+            <a href="#" class="btn btn-success" onclick="bbconfirm('upload','確定上傳？')">上傳</a>
             {{ Form::close() }}
+            <br>
+            3.打電話通知系統管理人員辦理更改密碼作業。
         </div>
     </div>
 @endsection

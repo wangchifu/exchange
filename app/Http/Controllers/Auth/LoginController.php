@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Application;
 use App\Change;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -69,5 +71,65 @@ class LoginController extends Controller
     {
         $realFile = public_path('sample/reset_password.pdf');
         return response()->download($realFile);
+    }
+
+    public function upload_pic(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $info = [
+                'mime-type' => $file->getMimeType(),
+                'original_filename' => $file->getClientOriginalName(),
+                'extension' => $file->getClientOriginalExtension(),
+                'size' => $file->getClientSize(),
+            ];
+            $type = explode('/',$info['mime-type']);
+
+            if ($type[0] != "image"){
+                $words = "不是圖檔？";
+                return view('layouts.error', compact('words'));
+            }
+
+
+            if ($info['size'] > 6100000) {
+                $words = "檔案大小超過5MB ！？";
+                return view('layouts.error', compact('words'));
+            } else {
+                $att['pic'] = date("YmdHis") .".". $info['extension'];
+                $folder = 'applications';
+                $file->storeAs('public/' . $folder, $att['pic']);
+
+                $att['action'] = "1";
+                $att['page'] = substr(md5(uniqid(rand(),true)),0,6);
+
+
+                //取ip
+                if (!empty($_SERVER["HTTP_CLIENT_IP"])){
+                    $ip = $_SERVER["HTTP_CLIENT_IP"];
+                }elseif(!empty($_SERVER["HTTP_X_FORWARDED_FOR"])){
+                    $ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+                }else{
+                    $ip = $_SERVER["REMOTE_ADDR"];
+                }
+                $att['ip'] = $ip;
+                Application::create($att);
+
+                return redirect()->route('forgetPW_show',$att['page']);
+            }
+        }else{
+            $words = "沒有檔案 ？？";
+            return view('layouts.error',compact('words'));
+        }
+
+
+    }
+
+    public function forgetPW_show($page)
+    {
+        $application = Application::where('page','=',$page)->first();
+        $data = [
+            'application'=>$application,
+        ];
+        return view('forgetPW_show',$data);
     }
 }

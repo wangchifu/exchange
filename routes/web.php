@@ -14,6 +14,16 @@
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('forgetPW', 'Auth\LoginController@forgetPW')->name('forgetPW');
 Route::get('download_pdf', 'Auth\LoginController@download_pdf')->name('download_pdf');
+Route::post('upload_pic', 'Auth\LoginController@upload_pic')->name('upload_pic');
+Route::get('forgetPW/{page}', 'Auth\LoginController@forgetPW_show')->name('forgetPW_show');
+Route::get('pic/{pic}',function($pic){
+    $path = storage_path('app/public/applications/') . $pic;
+    $file = \Illuminate\Support\Facades\File::get($path);
+    $type = \Illuminate\Support\Facades\File::mimeType($path);
+    $response = \Illuminate\Support\Facades\Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+});
 
 //Auth::routes();
 //登入/登出
@@ -30,7 +40,7 @@ Route::group(['middleware' => 'admin'],function(){
     Route::get('system/user', 'AdminController@user')->name('system.user');
     Route::post('system/user/store', 'AdminController@user_store')->name('system.user_store');
     Route::patch('system/user/{user}', 'AdminController@user_update')->name('system.user_update');
-    Route::get('system/user/{user}/default', 'AdminController@user_default')->name('system.user_default');
+    Route::get('system/user/{user}/default/{pw}', 'AdminController@user_default')->name('system.user_default');
     Route::get('system/user/{user}/delete', 'AdminController@user_delete')->name('system.user_delete');
     Route::get('system/user/{user}/setAdmin', 'AdminController@setAdmin')->name('system.user_setAdmin');
     Route::get('system/user/{user}/disAdmin', 'AdminController@disAdmin')->name('system.user_disAdmin');
@@ -39,6 +49,11 @@ Route::group(['middleware' => 'admin'],function(){
     Route::post('system/group/store', 'AdminController@group_store')->name('system.group_store');
     Route::patch('system/group/{group}', 'AdminController@group_update')->name('system.group_update');
     Route::get('system/group/{group}/delete', 'AdminController@group_delete')->name('system.group_delete');
+
+    Route::get('system/application', 'AdminController@application')->name('system.application');
+
+
+    Route::get('system/application/view/{pic}', 'AdminController@application_view')->name('system.application_view');
 
 });
 

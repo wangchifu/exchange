@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Action;
+use App\Application;
 use App\Group;
 use App\NewStuData;
 use App\Post;
@@ -284,9 +285,10 @@ class AdminController extends Controller
         return redirect()->route('system.user',['group_id'=>$user->group_id]);
     }
 
-    public function user_default(User $user)
+    public function user_default(User $user,$pw)
     {
-        $att['password'] = bcrypt(env('DEFAULT_USER_PWD'));
+        //$att['password'] = bcrypt(env('DEFAULT_USER_PWD'));
+        $att['password'] = bcrypt($pw);
         $user->update($att);
         return redirect()->route('system.user',['group_id'=>$user->group_id]);
     }
@@ -348,6 +350,24 @@ class AdminController extends Controller
         User::where('group_id','=',$group->id)->update($att);
         return redirect()->route('system.group');
     }
+
+    public function application()
+    {
+        $applications = Application::orderBy('id','DESC')->get();
+        $data =[
+            'applications'=>$applications,
+        ];
+        return view('systems.application',$data);
+    }
+
+    public function application_view($pic)
+    {
+        $data = [
+            'pic'=>$pic
+        ];
+        return view('systems.application_show',$data);
+    }
+
 
     /**
      * Show the form for creating a new resource.

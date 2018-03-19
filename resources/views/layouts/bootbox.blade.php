@@ -89,4 +89,17 @@
     function bbalert(word){
         bootbox.alert(word);
     }
+
+    function bbprompt(id,user,word){
+        link = document.getElementById(id).href;
+        document.getElementById(id).href='#';
+        bootbox.prompt(word, function(result){
+            console.log(result);
+            if (result) {
+                location.href = '/system/user/'+user+'/default/'+result;
+            }else{
+                document.getElementById(id).href=link;
+            }
+        });
+    }
 </script>

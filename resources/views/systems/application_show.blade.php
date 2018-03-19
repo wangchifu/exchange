@@ -1,0 +1,1 @@
+<img src="{{ url('pic/'.$pic) }}" width="700">

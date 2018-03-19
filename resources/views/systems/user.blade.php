@@ -7,7 +7,8 @@
     $active = [
         'action'=>'',
         'user'=>'',
-        'group'=>''
+        'group'=>'',
+        'application'=>''
     ];
     $path = explode('?',$_SERVER['REQUEST_URI']);
     $page_at = explode('/',$path[0]);
@@ -29,6 +30,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ $active['group'] }}" href="{{ route('system.group') }}">群組管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ $active['application'] }}" href="{{ route('system.application') }}">申請改密</a>
                 </li>
                 @endif
             </ul>
@@ -86,7 +90,7 @@
                         <td nowrap>
                             <a href="#" class="btn btn-info" onclick="bbconfirm('user_update{{ $user->id }}','儲存變更？')">儲存</a>
                             <?php $default = env('DEFAULT_USER_PWD'); ?>
-                            <a href="{{ route('system.user_default',$user->id) }}" class="btn btn-primary" id="default{{ $user->id }}" onclick="bbconfirm2('default{{ $user->id }}','還原密碼為 {{ $default }}?')">還原預設</a>
+                            <a href="{{ route('system.user_default',['user'=>$user->id,'pw'=>'demo1234']) }}" class="btn btn-primary" id="default{{ $user->id }}" onclick="bbprompt('default{{ $user->id }}',{{ $user->id }},'改密碼為多少')">還原預設</a>
                             @if($user->admin != "1")
                             <a href="{{ route('system.user_delete',$user->id) }}" class="btn btn-danger" id="delete{{ $user->id }}" onclick="bbconfirm2('delete{{ $user->id }}','真的要刪除！！？')">刪</a>
                             @endif

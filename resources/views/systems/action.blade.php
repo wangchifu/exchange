@@ -7,7 +7,8 @@
     $active = [
         'action'=>'',
         'user'=>'',
-        'group'=>''
+        'group'=>'',
+        'application'=>''
     ];
     $path = explode('?',$_SERVER['REQUEST_URI']);
     $page_at = explode('/',$path[0]);
@@ -29,6 +30,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ $active['group'] }}" href="{{ route('system.group') }}">群組管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ $active['application'] }}" href="{{ route('system.application') }}">申請改密</a>
                 </li>
                 @endif
             </ul>
