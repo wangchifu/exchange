@@ -96,7 +96,7 @@
                     <th width="100" nowrap>
                         檔案類型
                     </th>
-                    <th nowrap>
+                    <th width="110" nowrap>
                         對象
                     </th>
                     <th nowrap>
@@ -143,7 +143,22 @@
                         @endif
                     </td>
                     <td>
-                        {{ $action->groups }}
+                        <?php
+                            $for = "";
+                        $groups = explode(',',$action->groups);
+                        foreach($groups as $k=>$v){
+                            if(!empty($v)){
+                                $group = \App\Group::where('id','=',$v)->first();
+                                $one = $group->name;
+                                if(!empty($for)){
+                                    $for = $for."<br>".$one;
+                                }else{
+                                    $for = $one;
+                                }
+                            }
+                        }
+                        ?>
+                        {!! $for !!}
                     </td>
                     <td>
                         <a href="{{ route('system.show_upload',$action->id) }}" class="btn btn-secondary">{{ $action->uploads->count() }}</a>
