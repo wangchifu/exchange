@@ -59,7 +59,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">
-                                <input id="captcha" class="form-control" type="captcha" name="captcha" value="{{ old('captcha')  }}" required placeholder="請輸入驗證碼(大小寫不同，點一下換圖)">
+                                <input id="captcha" class="form-control" type="captcha" name="captcha" value="{{ old('captcha')  }}" required placeholder="(不分大小寫，點一下換圖)">
                                 @if ($errors->has('captcha'))
                                     <span class="help-block">
                                         <strong>驗證碼輸入錯誤</strong>

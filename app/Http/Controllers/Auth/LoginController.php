@@ -75,7 +75,7 @@ class LoginController extends Controller
 
     public function upload_pic(Request $request)
     {
-        if(empty($request->input('pw1'))){
+        if(empty($request->input('pw1')) or empty($request->input('pw2'))){
             $words = "密碼空的？";
             return view('layouts.error', compact('words'));
         }
