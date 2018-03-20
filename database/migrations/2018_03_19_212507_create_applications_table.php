@@ -15,6 +15,8 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('username');
+            $table->string('pw');
             $table->string('pic');
             $table->string('ip');
             $table->string('page');

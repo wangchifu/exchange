@@ -54,7 +54,8 @@ Route::group(['middleware' => 'admin'],function(){
 
 
     Route::get('system/application/view/{pic}', 'AdminController@application_view')->name('system.application_view');
-
+    Route::post('system/application/update', 'AdminController@application_update')->name('system.application_update');
+    Route::get('system/application/{application}/delete', 'AdminController@application_delete')->name('system.application_delete');
 });
 
 //管理者

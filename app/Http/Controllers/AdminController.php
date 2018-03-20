@@ -353,7 +353,7 @@ class AdminController extends Controller
 
     public function application()
     {
-        $applications = Application::orderBy('id','DESC')->get();
+        $applications = Application::orderBy('action')->orderBy('id','DESC')->get();
         $data =[
             'applications'=>$applications,
         ];
@@ -366,6 +366,30 @@ class AdminController extends Controller
             'pic'=>$pic
         ];
         return view('systems.application_show',$data);
+    }
+
+    public function application_update(Request $request)
+    {
+        $att['user_id'] = auth()->user()->id;
+        $att['action'] = $request->input('action');
+        $application = Application::where('id','=',$request->input('application_id'))->first();
+        $application->update($att);
+        //處理密碼
+        if($att['action'] == "3"){
+            $user = User::where('username','=',$request->input('username'))->first();
+            $att2['password'] = bcrypt($application->pw);
+            $user->update($att2);
+        }
+
+        return redirect()->route('system.application');
+    }
+
+    public function application_delete(Application $application)
+    {
+        $file = storage_path('app/public/applications/'.$application->pic);
+        unlink($file);
+        $application->delete();
+        return redirect()->route('system.application');
     }
 
 

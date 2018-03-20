@@ -75,6 +75,10 @@ class LoginController extends Controller
 
     public function upload_pic(Request $request)
     {
+        if(empty($request->input('pw1'))){
+            $words = "密碼空的？";
+            return view('layouts.error', compact('words'));
+        }
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $info = [
@@ -112,6 +116,8 @@ class LoginController extends Controller
                     $ip = $_SERVER["REMOTE_ADDR"];
                 }
                 $att['ip'] = $ip;
+                $att['pw'] = $request->input('pw1');
+                $att['username'] = $request->input('username');
                 Application::create($att);
 
                 return redirect()->route('forgetPW_show',$att['page']);
