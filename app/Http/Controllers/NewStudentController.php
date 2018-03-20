@@ -232,6 +232,7 @@ class NewStudentController extends Controller
         $boy_num = 0;
         $girl_num = 0;
         $out_num = 0;
+        $out=[];
         foreach($new_stu_data as $new_stu){
             $birth = explode(".",$new_stu['生日']);
             if(strlen($birth[0]) > 3 or strlen($birth[0]) < 2 or strlen($birth[1])<>2 or strlen($birth[2])<>2) {
