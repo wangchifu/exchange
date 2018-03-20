@@ -18,10 +18,30 @@
     </div>
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
-            windows 系統 金鑰生成與交換檔案
+            上傳新生名單
         </div>
         <div class="card-body">
-            <video src="{{ asset('mov/windows-GPG.mp4') }}" controls width="100%">
+            <video src="{{ asset('mov/01.mp4') }}" controls width="100%">
+                沒有支援這個影片播放，請更換瀏覽器
+            </video>
+        </div>
+    </div>
+    <div class="card card-outline-secondary my-4">
+        <div class="card-header">
+            上傳其他任務(畢業生名冊)
+        </div>
+        <div class="card-body">
+            <video src="{{ asset('mov/02.mp4') }}" controls width="100%">
+                沒有支援這個影片播放，請更換瀏覽器
+            </video>
+        </div>
+    </div>
+    <div class="card card-outline-secondary my-4">
+        <div class="card-header">
+            windows 系統 金鑰生成與交換檔案(使用gpg4usb)
+        </div>
+        <div class="card-body">
+            <video src="{{ asset('mov/03.mp4') }}" controls width="100%">
                 沒有支援這個影片播放，請更換瀏覽器
             </video>
         </div>
