@@ -63,6 +63,19 @@ class AdminController extends Controller
 
     public function action_store(Request $request)
     {
+        if(empty($request->input('study_year'))) {
+            $words = "你學年度沒有填！";
+            return view('layouts.error',compact('words'));
+        }
+        if(empty($request->input('name'))) {
+            $words = "你任務名稱沒有填！";
+            return view('layouts.error',compact('words'));
+        }
+        if(empty($request->input('groups'))) {
+            $words = "你對象沒有選！";
+            return view('layouts.error',compact('words'));
+        }
+
         $att['study_year'] = $request->input('study_year');
         $att['kind'] = $request->input('kind');
         $att['name'] = $request->input('name');
