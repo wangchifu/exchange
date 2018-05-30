@@ -34,8 +34,8 @@ class ChangeController extends Controller
             $change->update($att);
 
             $realFile = storage_path("app/public/changes/" . $change->file);
-
-            return response()->download($realFile);
+            $file_name = (empty($change->file_name))?$change->file:$change->file_name;
+            return response()->download($realFile,$file_name);
             header("location: index.php");
         }else{
             $words = "你想做什麼？";
@@ -92,6 +92,7 @@ class ChangeController extends Controller
                 $att['from'] = auth()->user()->id;
                 $att['for'] = $request->input('for');
                 $att['title'] = $request->input('title');
+                $att['file_name'] = $info['original_filename'].'.'.'gpg';
                 $att['file'] = date("YmdHis") .".". $info['extension'];
                 $att['upload_time'] =date("Ymd");
                 $att['download'] = 0;

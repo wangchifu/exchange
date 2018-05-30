@@ -80,16 +80,16 @@
             <table class="table table-light">
                 <thead>
                 <tr>
-                    <th width="180">
+                    <th width="100">
                         寄件時間
                     </th>
                     <th width="120">
                         收件人
                     </th>
-                    <th>
-                        說明
+                    <th nowrap>
+                        文件說明內容
                     </th>
-                    <th>
+                    <th width="80">
                         狀態
                     </th>
                 </tr>
@@ -98,7 +98,8 @@
                 @foreach($changes as $change)
                     <tr>
                         <td nowrap>
-                            {{ $change->created_at }}
+                            {{ substr($change->created_at,0,10) }}<br>
+                            {{ substr($change->created_at,11,8) }}
                         </td>
                         <td nowrap>
                             <?php
@@ -110,14 +111,11 @@
                             {{ $change->title }}
                         </td>
                         <td nowrap>
-                            <?php
-                            if($change->download == 1){
-                                $d = $change->updated_at."已下載";
-                            }else{
-                                $d = "未曾下載";
-                            }
-                            ?>
-                            {{ $d }}
+                            @if($change->download == 1 or $change->download == 3)
+                                <button title="" data-toggle="popover" data-placement="top" data-content="{{ $change->updated_at }} 下載">已下</button>
+                            @elseif($change->download == 0 or $change->download == 2)
+                                未下
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -199,5 +197,10 @@
 
         ga('create', 'UA-27560722-2', 'auto');
         ga('send', 'pageview');
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="popover"]').popover();
+        });
     </script>
 @endsection

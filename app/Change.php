@@ -10,6 +10,7 @@ class Change extends Model
         'from',
         'for',
         'title',
+        'file_name',
         'file',
         'upload_time',
         'download',

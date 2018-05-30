@@ -12,11 +12,11 @@
             <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
-                    <th width="200">時間</th>
-                    <th>寄件人</th>
-                    <th>標題</th>
-                    <th>狀態</th>
-                    <th width="50">動作</th>
+                    <th width="100">寄件時間</th>
+                    <th width="120">寄件人</th>
+                    <th nowrap>文件說明內容</th>
+                    <th width="80">狀態</th>
+                    <th width="80">動作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -27,7 +27,8 @@
                 @foreach($changes as $change)
                 <tr>
                     <td nowrap>
-                        {{ $change->created_at }}
+                        {{ substr($change->created_at,0,10) }}<br>
+                        {{ substr($change->created_at,11,8) }}
                     </td>
                     <td nowrap>
                         <?php
@@ -39,14 +40,11 @@
                         {{ $change->title }}
                     </td>
                     <td nowrap>
-                        <?php
-                        if($change->download == 1 or $change->download == 3){
-                            $d = $change->updated_at."已下載";
-                        }elseif($change->download == 0 or $change->download == 2){
-                            $d = "未曾下載";
-                        }
-                        ?>
-                        {{ $d }}
+                        @if($change->download == 1 or $change->download == 3)
+                            <button title="" data-toggle="popover" data-placement="top" data-content="{{ $change->updated_at }} 下載">已下</button>
+                        @elseif($change->download == 0 or $change->download == 2)
+                            未下
+                        @endif
                     </td>
                     <td>
                         @if($change->download < 2)
@@ -65,4 +63,9 @@
             {{ $changes->links('vendor.pagination.bootstrap-4') }}
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
 @endsection
