@@ -4,7 +4,7 @@
 
 @section('content')
     <h1>最新公告</h1>
-    <a href="{{ route('about') }}" class="btn btn-info">學校交換教學</a>
+    <a href="{{ route('about') }}" class="btn btn-danger"><i class="glyphicon glyphicon-book"></i> 操作教學影片</a>
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
             News @if(auth()->user()->group_id=="1")<a href="{{ route('post.create') }}" class="btn btn-success">新增公告</a>@endif
