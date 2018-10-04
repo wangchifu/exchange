@@ -240,6 +240,20 @@ class NewStudentController extends Controller
                 return view('layouts.error',compact('words'));
             }
 
+            if(empty($new_stu['性別'])) {
+                $words = $new_stu['學號'] . " " . $new_stu['姓名'] . "的性別「不可空白」！請上SFS3修改，下載csv檔，再上傳本站！";
+                return view('layouts.error',compact('words'));
+            }
+            if(empty($new_stu['身分證字號'])) {
+                $words = $new_stu['學號'] . " " . $new_stu['姓名'] . "身分證字號「不可空白」！請上SFS3修改，下載csv檔，再上傳本站！";
+                return view('layouts.error',compact('words'));
+            }
+            if(empty($new_stu['戶籍地址'])) {
+                $words = $new_stu['學號'] . " " . $new_stu['姓名'] . "的戶籍住址「不可空白」！請上SFS3修改，下載csv檔，再上傳本站！";
+                return view('layouts.error',compact('words'));
+            }
+
+
             if($new_stu['性別'] == "男") $boy_num++;
             if($new_stu['性別'] == "女") $girl_num++;
 

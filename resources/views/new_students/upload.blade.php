@@ -12,7 +12,9 @@
             <h4>說明：</h4>
             1.使用SFS3可直接下載：
             <a href="{{ asset('img/sfs3.png') }}" target="_blank"><img src="{{ asset('img/sfs3.png') }}" width="400"></a><br><br><br><br>
-            2.未使用SFS3：<a href="{{ route('new_student.download_sample') }}" class="btn btn-info" target="_blank">下載範例檔</a>，修改存成csv檔。
+            2.未使用SFS3：<a href="{{ route('new_student.download_sample') }}" class="btn btn-info" target="_blank">下載範例檔</a>，修改存成csv檔。<br><br>
+            3.<strong class="text-danger">切記，可以用 Microsoft Excel 等軟體打開檢視，但切勿存檔，生日及戶籍住址不可空白！姓名可在上傳後再修正！</strong><br><br>
+
             <br><br>
             <table class="table table-hover">
                 <thead>
