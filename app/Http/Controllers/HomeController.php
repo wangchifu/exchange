@@ -71,7 +71,7 @@ class HomeController extends Controller
 
         $gpg = '/usr/bin/gpg';
 
-        //查key id
+        //查die_date
         $filename = auth()->user()->username.".asc";
         $file_path = storage_path('app/public/public_keys/'.$filename);
         if(file_exists($file_path)){
