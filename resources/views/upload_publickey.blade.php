@@ -36,6 +36,8 @@
                     <td colspan="2">
                 @if(auth()->user()->upload_time != "")
                         <img src="{{ asset('img/lock.png') }}">已上傳過公鑰，上傳時間為：{{ auth()->user()->upload_time }}
+                        <br>
+                        到期日為：{{ $die_date }}
                     </td>
                     <td>
                         {{ Form::open(['route' => ['delete_publickey',auth()->user()->id], 'method' => 'POST','name'=>'form2','id'=>'delete','onsubmit'=>'return false;']) }}

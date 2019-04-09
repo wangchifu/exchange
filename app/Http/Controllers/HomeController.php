@@ -68,7 +68,22 @@ class HomeController extends Controller
 
     public function upload_publickey()
     {
-        return view('upload_publickey');
+
+        $gpg = '/usr/bin/gpg';
+
+        //查key id
+        $filename = auth()->user()->username.".asc";
+        $file_path = storage_path('app/public/public_keys/'.$filename);
+        if(file_exists($file_path)){
+            $e = $gpg." --with-fingerprint ".$file_path." |awk 'BEGIN{FS=\": \"};NR==3{print $2}'";
+            $process = new Process($e);
+            $process->run();
+            $die_date = substr($process->getOutput(),0,10);
+        }else{
+            $die_date = "";
+        }
+
+        return view('upload_publickey',compact('die_date'));
     }
 
     public function store_publickey(Request $request)
