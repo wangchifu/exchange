@@ -63,7 +63,7 @@ class ChangeController extends Controller
             }else{
                 $die_date = "";
             }
-            $user_menu[$user->id] = $user->username.'('.$die_date.' 到期！不可寄送)';
+            $user_menu[$user->id] = $user->name.'('.$die_date.' 到期！)';
 
         }
 
