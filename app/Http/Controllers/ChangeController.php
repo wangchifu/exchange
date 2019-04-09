@@ -59,12 +59,14 @@ class ChangeController extends Controller
                 $e = $gpg." --with-fingerprint ".$file_path." | awk 'END{print $5}'";
                 $process = new Process($e);
                 $process->run();
-                $die_date = substr($process->getOutput(),0,10);
-                if(empty(trim($die_date))) $die_date="無限期";
-            }else{
-                $die_date = "查無";
+                $die_date = str_replace('-','',substr($process->getOutput(),0,10));
+                if(empty(trim($die_date))) $die_date="99999999";
+
+                if(date('Ymd') < $die_date){
+                    $user_menu[$user->id] = $user->name;
+                }
             }
-            $user_menu[$user->id] = $user->name.'('.$die_date.'止)';
+
 
         }
 
