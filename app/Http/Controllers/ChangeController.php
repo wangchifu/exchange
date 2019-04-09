@@ -62,7 +62,7 @@ class ChangeController extends Controller
                 $die_date = substr($process->getOutput(),0,10);
                 if(empty($die_date)) $die_date="無限期";
             }else{
-                $die_date = "";
+                $die_date = "查無";
             }
             $user_menu[$user->id] = $user->name.'('.$die_date.'止)';
 
