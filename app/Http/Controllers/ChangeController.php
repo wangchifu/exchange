@@ -45,12 +45,31 @@ class ChangeController extends Controller
 
     public function outbox()
     {
-        $user_menu = User::where('public_key','!=','')
+        $users = User::where('public_key','!=','')
             ->orderBy('group_id')
             ->orderBy('username')
-            ->get()
-            ->pluck('name', 'id')
-            ->toArray();
+            ->get();
+
+        $gpg = '/usr/bin/gpg';
+        foreach($users as $user){
+            //查die_date
+            $filename = $user->username.".asc";
+            $file_path = storage_path('app/public/public_keys/'.$filename);
+            if(file_exists($file_path)){
+                $e = $gpg." --with-fingerprint ".$file_path." |awk 'BEGIN{FS=\": \"};NR==3{print $2}'";
+                $process = new Process($e);
+                $process->run();
+                $die_date = substr($process->getOutput(),0,10);
+            }else{
+                $die_date = "";
+            }
+            $user_menu[$user->id] = $user->name.'('.$die_date.'止)';
+
+        }
+
+
+
+
 
         $changes = Change::where('from','=',auth()->user()->id)
             ->orderBy('id','DESC')
