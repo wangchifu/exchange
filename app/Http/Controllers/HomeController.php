@@ -75,7 +75,7 @@ class HomeController extends Controller
         $filename = auth()->user()->username.".asc";
         $file_path = storage_path('app/public/public_keys/'.$filename);
         if(file_exists($file_path)){
-            $e = $gpg." --with-fingerprint ".$file_path." |awk 'BEGIN{FS=\": \"};NR==3{print $2}'";
+            $e = $gpg." --with-fingerprint ".$file_path." | awk 'END{print $5}'";
             $process = new Process($e);
             $process->run();
             $die_date = substr($process->getOutput(),0,10);
