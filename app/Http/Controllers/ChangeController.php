@@ -53,7 +53,7 @@ class ChangeController extends Controller
         $gpg = '/usr/bin/gpg';
         foreach($users as $user){
             //查die_date
-            $filename = $user()->username.".asc";
+            $filename = $user->username.".asc";
             $file_path = storage_path('app/public/public_keys/'.$filename);
             if(file_exists($file_path)){
                 $e = $gpg." --with-fingerprint ".$file_path." |awk 'BEGIN{FS=\": \"};NR==3{print $2}'";
