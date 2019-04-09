@@ -60,7 +60,7 @@ class ChangeController extends Controller
                 $process = new Process($e);
                 $process->run();
                 $die_date = substr($process->getOutput(),0,10);
-                if(empty($die_date)) $die_date="無限期";
+                if(empty(trim($die_date))) $die_date="無限期";
             }else{
                 $die_date = "查無";
             }
