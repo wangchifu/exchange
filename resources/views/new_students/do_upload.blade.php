@@ -7,7 +7,9 @@
             <h2>{{ $new_stu_data[0]['入學資格'] }}</h2>
     <h3>(共上傳 {{ $num }} 位學生，{{ $boy_num }} 男 {{ $girl_num }} 女。{{ $out_num }} 位學生超過生日區間)</h3>
     <span class="btn btn-dark disabled">步驟 (1)：上傳新生資料</span>　　<span class="btn btn-dark">步驟 (2)：修改姓名亂碼及填寫超出生日區間原因</span>
-            <table class="table table-hover">
+    {{ Form::open(['route'=>'new_student.store', 'method' => 'POST','id'=>'store','onsubmit'=>'return false;']) }}
+    <input type="hidden" name="action_id" value="{{ $action->id }}">
+    <table class="table table-hover">
                 <thead>
                 <tr>
                     <th nowrap>
@@ -34,8 +36,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php $i=1; ?>
-                {{ Form::open(['route'=>'new_student.store', 'method' => 'POST','id'=>'store','onsubmit'=>'return false;']) }}
+                <?php $i=1;?>
                 @foreach($new_stu_data as $new_stu)
                     <?php $bgcolor = (empty($out[$new_stu['學號']]))?"":"#FFE8E8"; ?>
                 <tr bgcolor="{{ $bgcolor }}">
@@ -85,7 +86,7 @@
                 </tbody>
             </table>
             <a href="#" class="btn btn-success" id="b_submit" onclick="bbconfirm3('store','確定姓名，原因都好了？')">步驟 (3)：確定寫入資料</a>
-            <input type="hidden" name="action_id" value="{{ $action->id }}">
-            {{ Form::close() }}
             <a href="#" class="btn btn-secondary" onclick="history.back();">返回放棄</a>
+        {{ Form::close() }}
+
 @endsection

@@ -57,6 +57,7 @@ class NewStudentController extends Controller
         $att['user_id'] = auth()->user()->id;
         $att['username'] = auth()->user()->username;
         $att['group_id'] = auth()->user()->group_id;
+
         $create_all = [];
         $cellData =[['學號','姓名','性別','身分證字號','生日','入學時間','入學資格','戶籍地址','原因']];
         foreach($stu_sn as $k=>$v){
@@ -64,7 +65,7 @@ class NewStudentController extends Controller
             $att['stu_name'] = $stu_name[$k];
             $att['stu_sex'] = $stu_sex[$k];
             $att['stu_id'] = $stu_id[$k];
-            $att['stu_birthday'] = $stu_birthday[$k];
+            $att['stu_birthday'] = str_replace("-",'.',$stu_birthday[$k]);
             $att['stu_date'] = $stu_date[$k];
             $att['stu_school'] = $stu_school[$k];
             $att['stu_address'] = $stu_address[$k];
@@ -189,8 +190,33 @@ class NewStudentController extends Controller
 
     public function do_upload(Request $request,Action $action)
     {
+        /**
         if ($request->hasFile('csv')) {
             $file = $request->file('csv');
+            $folder = 'uploads/'.$action->id;
+
+            $info = [
+                //'mime-type' => $file->getMimeType(),
+                'original_filename' => $file->getClientOriginalName(),
+                //'extension' => $file->getClientOriginalExtension(),
+                'size' => $file->getClientSize(),
+            ];
+            if ($info['size'] > 6100000)
+            {
+                $words = "檔案大小超過5MB ！？";
+                return view('layouts.error',compact('words'));
+            } else {
+                //最後寫入即可
+                //$filename = $action->id."_".auth()->user()->group_id."_".auth()->user()->username.".csv";
+                //$file->storeAs('public/' . $folder, $filename);
+            }
+        }else{
+            $words = "沒有檔案 ？？";
+            return view('layouts.error',compact('words'));
+        }
+         * */
+        if ($request->hasFile('xlsx')) {
+            $file = $request->file('xlsx');
             $folder = 'uploads/'.$action->id;
 
             $info = [
@@ -224,7 +250,7 @@ class NewStudentController extends Controller
             ->where('action_id','=',$action->id)
             ->delete();
 
-        $filePath = $request->file('csv')->getRealPath();
+        $filePath = $request->file('xlsx')->getRealPath();
         $new_stu_data = Excel::load($filePath, function ($reader) {
         })->get();
 
@@ -233,8 +259,12 @@ class NewStudentController extends Controller
         $girl_num = 0;
         $out_num = 0;
         $out=[];
-        foreach($new_stu_data as $new_stu){
-            $birth = explode(".",$new_stu['生日']);
+        foreach($new_stu_data as $k=>$new_stu){
+            $birth = explode("-",$new_stu['生日民國']);
+            $new_stu_data[$k]['生日'] = $new_stu['生日民國'];
+            $new_stu_data[$k]['身分證字號'] = $new_stu['身分證號'];
+            $new_stu_data[$k]['入學資格'] = auth()->user()->name;
+            $new_stu_data[$k]['入學時間'] = $action->study_year.".08";
             if(strlen($birth[0]) > 3 or strlen($birth[0]) < 2 or strlen($birth[1])<>2 or strlen($birth[2])<>2) {
                 $words = $new_stu['學號'] . " " . $new_stu['姓名'] . "的生日格式不對「" . $new_stu['生日'] . "」！請修改後再上傳！正確格式為：民國年(2-3碼).月(2碼).日(2碼)：如-->96.10.07";
                 return view('layouts.error',compact('words'));
@@ -244,7 +274,7 @@ class NewStudentController extends Controller
                 $words = $new_stu['學號'] . " " . $new_stu['姓名'] . "的性別「不可空白」！請上SFS3修改，下載csv檔，再上傳本站！";
                 return view('layouts.error',compact('words'));
             }
-            if(empty($new_stu['身分證字號'])) {
+            if(empty($new_stu['身分證號'])) {
                 $words = $new_stu['學號'] . " " . $new_stu['姓名'] . "身分證字號「不可空白」！請上SFS3修改，下載csv檔，再上傳本站！";
                 return view('layouts.error',compact('words'));
             }
@@ -267,7 +297,7 @@ class NewStudentController extends Controller
                 $birthday1 = ($action->study_year - 13)."0902";
                 $birthday2 = ($action->study_year - 12)."0901";
             }
-            $stud_birthday = str_replace('.','',$new_stu['生日']);
+            $stud_birthday = str_replace('-','',$new_stu['生日民國']);
 
             if($stud_birthday<$birthday1 or $stud_birthday>$birthday2){
                 $out[$new_stu['學號']] = 1;
@@ -292,7 +322,8 @@ class NewStudentController extends Controller
     public function download_sample()
     {
         $filename = "newstud_sample.csv";
-        $realFile = public_path('sample/newstud_sample.csv');
+        //$realFile = public_path('sample/newstud_sample.csv');
+        $realFile = public_path('sample/list.xlsx');
         //header("Content-type:application");
         //header("Content-Length: " .(string)(filesize($realFile)));
         //header("Content-Disposition: attachment; filename=".$filename);

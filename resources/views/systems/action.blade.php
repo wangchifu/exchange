@@ -73,7 +73,7 @@
                     </td>
                     <td>
                         {{ Form::select('file_type1', $file_types, null, ['id' => 'file_types', 'class' => 'form-control','required'=>'required','style'=>'display:none']) }}
-                        {{ Form::text('file_type2','csv', ['id' => 'newstud_file', 'class' => 'form-control','readonly'=>'readonly','required'=>'required']) }}
+                        {{ Form::text('file_type2','xlsx', ['id' => 'newstud_file', 'class' => 'form-control','readonly'=>'readonly','required'=>'required']) }}
                     </td>
                     <td colspan="2">
                         {{ Form::select('groups[]', $groups_menu, null, ['id' => 'groups[]', 'class' => 'form-control','multiple'=>'multiple','required'=>'required']) }}
