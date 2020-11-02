@@ -57,7 +57,7 @@
 <footer class="py-5 bg-dark">
     <div class="container">
         <p class="m-0 text-center text-white">
-            Copyright &copy; 彰化縣教育處學管科 2018
+            Copyright &copy; ET Wang 2018 保留一切權利
         </p>
     </div>
     <!-- /.container -->
